@@ -39,6 +39,22 @@
       		infowindow.setPosition(map.getCenter());
   			infowindow.setContent('A localização falhou!');
       	});
+
+      	harassmentMap.createMark();
+
+      	marks = [{lat:-5.637852598770853 , lng: -38.56201171875 , title:"title" },
+
+      		{lat: -6.599130675207247, lng:-40.23193359375, title:"title" },
+      		
+      		{lat:-6.446317749457633, lng:-36.6064453125, title:"title" },
+
+      		{lat:-7.406047717076259, lng:-38.583984375, title:"title" }
+
+      	];
+
+      	harassmentMap.loadMarks(marks);
+
+
 	
 	}
     </script>
