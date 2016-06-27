@@ -34,6 +34,10 @@ function initMap() {
         //EXIBIR MODAL
         $('#myModalHorizontal').modal('show');
         
+        $('#cancelarBtn').on('click', function(){
+           $('#myModalHorizontal').modal('hide');
+            $('#denunciaBtn').off('click');
+        });
 
         //SETAR EVENTO CONFIRMAÇÃO DE DENUNCIA
         $('#denunciaBtn').on('click', function(){
