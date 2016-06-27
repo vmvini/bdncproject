@@ -5,61 +5,156 @@
 <!DOCTYPE html>
 <html>
   <head>
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <style>
        #map {
         width: 100%;
         height: 400px;
       }
     </style>
+
+    <!--JQUERY-->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    
+
+    <!--BOOTSTRAP-->
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    
+
+    <!-- JQUERY-UI-->
+    <script src="bower_components/jquery.ui/ui/jquery.ui.core.js"></script>
+    <link rel="stylesheet" type="text/css" href="bower_components/jquery.ui/themes/base/jquery.ui.core.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/jquery.ui/themes/base/jquery.ui.autocomplete.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/jquery.ui/themes/base/jquery.ui.base.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/jquery.ui/themes/base/jquery.ui.theme.css">
+   	<script src="bower_components/jquery.ui/ui/jquery.ui.widget.js"></script>
+   	<script src="bower_components/jquery.ui/ui/jquery.ui.autocomplete.js"></script>
+
+
+    <!-- TAG-IT -->
+    <script src="bower_components/tag-it/js/tag-it.js" type="text/javascript" charset="utf-8"></script>
+    <link href="bower_components/tag-it/css/jquery.tagit.css" rel="stylesheet" type="text/css">
+
+    <!-- TAGS -->
+    <script src="tags/tags.js" type="text/javascript" charset="utf-8"></script>
+
+    
+    <!-- HARASSMENT MAP -->
+    <script src="maps/marker.js"></script>
+    <script src="maps/maps_facade.js"></script>
+    <script src="maps/initMap.js"></script>
+
+
+    <!-- GOOGLE MAPS -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyDWD7AiYy5CKsYA0kJlPIVmy9aYEAKD240&callback=initMap" async defer></script>
+
+
+    <!-- INDEX VIEW  -->
+    <link rel="stylesheet" type="text/css" href="modal.css">
+
+
   </head>
+
   <body>
-    <div id="map"></div>
+    
    
 
     
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyDWD7AiYy5CKsYA0kJlPIVmy9aYEAKD240&callback=initMap" async defer>
-    </script>
+    
 
-    <script src="marker.js"></script>
-    <script src="maps_facade.js"></script>
+    
+    
+<div id="map"></div>
 
-     <script>
-      function initMap() {
-        
-      	var harassmentMap = new HarassmentMap();
-
-      	var map = harassmentMap.createMap("map");
-      	var infowindow = harassmentMap.createInfoWindow();
-
-      	harassmentMap.goToUserLocation(function(pos){
-      		//success callback
-      		infowindow.setPosition(pos);
-      		infowindow.setContent('Localização encontrada!');
-      	
-      	}, function(){
-      		//error callback
-      		infowindow.setPosition(map.getCenter());
-  			infowindow.setContent('A localização falhou!');
-      	});
-
-      	harassmentMap.createMark();
-
-      	marks = [{lat:-5.637852598770853 , lng: -38.56201171875 , title:"title", label:"ASSEDIO" },
-
-      		{lat: -6.599130675207247, lng:-40.23193359375, title:"title", label:"ESTUPRO" },
-      		
-      		{lat:-6.446317749457633, lng:-36.6064453125, title:"title", label:"VIOLENCIA" },
-
-      		{lat:-7.406047717076259, lng:-38.583984375, title:"title", label:"ASSEDIO" }
-
-      	];
-
-      	harassmentMap.loadMarks(marks);
 
 
 	
-	}
-    </script>
+
+    <!-- Button trigger modal -->
+<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModalHorizontal">
+    Launch Horizontal Form
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModalHorizontal" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" 
+                   data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                   	Denunciar agressão
+                </h4>
+            </div>
+            
+           
+            <!-- Modal Body -->
+            <div class="modal-body">
+                
+                <form class="form-horizontal" role="form">
+                  
+                  <div class="form-group">
+                  	<label class="col-sm-2 control-label" for="selectorType">Classificação do Crime</label>
+                  	<div class="col-sm-10">
+                  		<select id="selectorType" class="form-control">
+						  <option>Assédio</option>
+						  <option>Violência</option>
+						  <option>Estupro</option>
+						</select>
+
+                  	</div>
+                  </div>
+
+
+                  <div class="form-group">
+                  	<label class="col-sm-2 control-label" for="selectorVictim">Vítima</label>
+                  	<div class="col-sm-10">
+                  		<select id="selectorVictim" class="form-control">
+          						  <option>Sou a vítima</option>
+          						  <option>Presenciei o crime</option>
+          						</select>
+
+                  	</div>
+                  </div>
+
+                  <h3>Tags</h3>
+                  <ul id="myTags">
+                  </ul>
+
+                  <div class="checkbox">
+                  	<label>
+                  		<input type="checkbox" value="true">
+                  		Denúncia Anônima
+                  	</label>
+                  </div>
+
+                </form>
+                
+            </div>
+            
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default"
+                        data-dismiss="modal">
+                            Cancelar
+                </button>
+                <button type="button" id="denunciaBtn" class="btn btn-primary">
+                    Denunciar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
   </body>
 </html>

@@ -38,7 +38,6 @@ function addMarker(markProps, markClick ){
 		position: markProps.pos,
 		map:markProps.map,
 		animation: google.maps.Animation.DROP,
-		title:markProps.title,
 		icon: {
 		    url :MARKER_ICON.get(markProps.label),
 		    size : new google.maps.Size(21,34),
@@ -58,5 +57,17 @@ function addMarker(markProps, markClick ){
 	});
 
 	return marker;
+
+}
+
+
+
+function MarkProps(denuncia, map){
+
+	this.map = map;
+	this.pos = denuncia.pos;
+	this.label = denuncia.crime;
+
+	this.denuncia = denuncia;
 
 }

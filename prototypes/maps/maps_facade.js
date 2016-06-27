@@ -58,7 +58,7 @@ HarassmentMap.prototype.setClickEvent = function(callback){
 	});
 }
 
-
+/*
 HarassmentMap.prototype.createMark = function(){
 
 	var map = this.map;
@@ -66,7 +66,7 @@ HarassmentMap.prototype.createMark = function(){
 	/*
 	marcadores
 		estupro, assedio, violencia
-	*/
+	
 
 	this.map.addListener('click', function(e){
 		
@@ -78,7 +78,7 @@ HarassmentMap.prototype.createMark = function(){
 			map: map,
 			pos: latlng,
 			title: "title",
-			label:"A"
+			label:"ASSEDIO"
 		};
 
 		var marker = addMarker(markProps);
@@ -88,6 +88,8 @@ HarassmentMap.prototype.createMark = function(){
 	});
 
 }
+
+*/
 
 
 HarassmentMap.prototype.createInfoWindow = function(){
