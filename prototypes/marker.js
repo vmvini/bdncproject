@@ -13,3 +13,50 @@ var MARKER_ICON = (function() {
         get: function(name) { return private[name]; }
     };
 })();
+
+
+/*
+		markProps
+			map
+			pos
+			animation - null
+			title
+		
+		markClick - callback for click event
+
+	*/
+
+
+
+function addMarker(markProps, markClick ){
+
+
+    
+	markProps.map.setCenter(markProps.pos);
+
+	var marker = new google.maps.Marker({
+		position: markProps.pos,
+		map:markProps.map,
+		animation: google.maps.Animation.DROP,
+		title:markProps.title,
+		icon: {
+		    url :MARKER_ICON.get(markProps.label),
+		    size : new google.maps.Size(21,34),
+		    anchor : new google.maps.Point(10,34)
+		}
+	});
+
+	marker.addListener('click', function(){
+		if (marker.getAnimation() !== null) {
+			marker.setAnimation(null);
+		} else {
+			marker.setAnimation(google.maps.Animation.BOUNCE);
+		}
+		
+		if(markClick)
+			markClick();
+	});
+
+	return marker;
+
+}
