@@ -34,36 +34,40 @@ function initMap() {
         //EXIBIR MODAL
         $('#myModalHorizontal').modal('show');
         
+        //SETAR EVENTO DE BOTAO CANCELAR DENUNCIA
         $('#cancelarBtn').on('click', function(){
            $('#myModalHorizontal').modal('hide');
             $('#denunciaBtn').off('click');
+            $('#cancelarBtn').off('click');
         });
 
         //SETAR EVENTO CONFIRMAÇÃO DE DENUNCIA
         $('#denunciaBtn').on('click', function(){
 
-          $('#denunciaBtn').off('click');
+            $('#denunciaBtn').off('click');
+            $('#cancelarBtn').off('click');
 
-          console.log("realizou denuncia");
-          
-          var denuncia = {
+            console.log("realizou denuncia");
+            
+            //CRIAR OBJETO DENUNCIA Q SERÁ PERSISTIDO
+            var denuncia = {
 
-             pos: {lat: e.latLng.lat(), lng: e.latLng.lng()},
-             tags: $("#myTags").tagit("assignedTags"),
-             vitima: false,
-             crime: "ASSEDIO",
-             anonimo: false,
-             usuario: undefined
+               pos: {lat: e.latLng.lat(), lng: e.latLng.lng()},
+               tags: $("#myTags").tagit("assignedTags"),
+               vitima: false,
+               crime: "ASSEDIO",
+               anonimo: false,
+               usuario: undefined
 
-          };
+            };
 
-          console.log(denuncia);
+            console.log(denuncia);
 
+            //ADICIONAR MARCAÇÃO DA DENUNCAI NO MAPA
+            addMarker(new MarkProps(denuncia, hmap.map));
 
-          addMarker(new MarkProps(denuncia, hmap.map));
-
-          //FECHAR MODAL
-          $('#myModalHorizontal').modal('hide');
+            //FECHAR MODAL
+            $('#myModalHorizontal').modal('hide');
 
         });
 
