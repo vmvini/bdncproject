@@ -1,5 +1,6 @@
 function HarassmentMap(){}
 
+
 HarassmentMap.prototype.createMap = function(divId){
 
 	this.map = new google.maps.Map(document.getElementById(divId), {
@@ -20,13 +21,11 @@ HarassmentMap.prototype.createMap = function(divId){
 			lat
 			lng
 			title
+			label
 */
 HarassmentMap.prototype.loadMarks = function(marks){
 
 	var map = this.map;
-	console.log("vetor marks: " + marks.length);
-	console.log(marks[0]);
-
 	var i = 0;
 
 	marks.forEach(function(mark){
@@ -36,7 +35,8 @@ HarassmentMap.prototype.loadMarks = function(marks){
     		addMarker({
     			map: map,
 				pos: { lat: mark.lat, lng: mark.lng },
-				title: mark.title
+				title: mark.title,
+				label: mark.label
     		});
 
     	}, ++i * 200);
@@ -46,8 +46,17 @@ HarassmentMap.prototype.loadMarks = function(marks){
 
 }
 
+/*
+	callback(event, HarassmentMap)
+*/
+HarassmentMap.prototype.setClickEvent = function(callback){
+	
+	var that = this;
 
-
+	this.map.addListener('click', function(e){
+		callback(e, that);
+	});
+}
 
 
 HarassmentMap.prototype.createMark = function(){
@@ -68,7 +77,8 @@ HarassmentMap.prototype.createMark = function(){
 		var markProps = {
 			map: map,
 			pos: latlng,
-			title: "title"
+			title: "title",
+			label:"A"
 		};
 
 		var marker = addMarker(markProps);
@@ -128,13 +138,25 @@ HarassmentMap.prototype.goToUserLocation = function(success, error){
 		markClick - callback for click event
 
 	*/
+
+
+
 function addMarker(markProps, markClick ){
+
+
+    
+	markProps.map.setCenter(markProps.pos);
 
 	var marker = new google.maps.Marker({
 		position: markProps.pos,
 		map:markProps.map,
 		animation: google.maps.Animation.DROP,
-		title:markProps.title
+		title:markProps.title,
+		icon: {
+		    url :MARKER_ICON.get(markProps.label),
+		    size : new google.maps.Size(21,34),
+		    anchor : new google.maps.Point(10,34)
+		}
 	});
 
 	marker.addListener('click', function(){

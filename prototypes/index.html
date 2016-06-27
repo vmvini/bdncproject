@@ -1,5 +1,7 @@
 <!-- chave maps AIzaSyCMMUS9QEUHxmYYnZz2B9FI9USaABtMTts -->
 
+<!-- chave 2 AIzaSyDWD7AiYy5CKsYA0kJlPIVmy9aYEAKD240 -->
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -15,10 +17,10 @@
    
 
     
-    <script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMMUS9QEUHxmYYnZz2B9FI9USaABtMTts&callback=initMap">
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.24&key=AIzaSyDWD7AiYy5CKsYA0kJlPIVmy9aYEAKD240&callback=initMap" async defer>
     </script>
 
+    <script src="marker.js"></script>
     <script src="maps_facade.js"></script>
 
      <script>
@@ -42,13 +44,13 @@
 
       	harassmentMap.createMark();
 
-      	marks = [{lat:-5.637852598770853 , lng: -38.56201171875 , title:"title" },
+      	marks = [{lat:-5.637852598770853 , lng: -38.56201171875 , title:"title", label:"ASSEDIO" },
 
-      		{lat: -6.599130675207247, lng:-40.23193359375, title:"title" },
+      		{lat: -6.599130675207247, lng:-40.23193359375, title:"title", label:"ESTUPRO" },
       		
-      		{lat:-6.446317749457633, lng:-36.6064453125, title:"title" },
+      		{lat:-6.446317749457633, lng:-36.6064453125, title:"title", label:"VIOLENCIA" },
 
-      		{lat:-7.406047717076259, lng:-38.583984375, title:"title" }
+      		{lat:-7.406047717076259, lng:-38.583984375, title:"title", label:"ASSEDIO" }
 
       	];
 
