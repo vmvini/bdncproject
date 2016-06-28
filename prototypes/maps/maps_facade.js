@@ -100,10 +100,37 @@ HarassmentMap.prototype.createInfoWindow = function(){
 }
 
 
+HarassmentMap.prototype.searchAutoComplete = function(address, callback){
+
+	var location = this.map.getCenter();
+
+	var service = new google.maps.places.AutocompleteService();
+	service.getQueryPredictions({ 
+		input: address, 
+		location: location,
+		radius:0
+	}, searchLocaleResponse(callback) );
+
+
+	function searchLocaleResponse(callback){
+		
+		return function(results, status){
+			if (status == google.maps.places.PlacesServiceStatus.OK) {
+				callback(results);
+			}
+			else{
+				callback(['Não foi possível encontrar esse local.']);
+			}
+		};
+
+	}
+
+}
 
 HarassmentMap.prototype.goToUserLocation = function(success, error){
 
 	var map = this.map;
+	var that = this;
 
 	if (navigator.geolocation) {
     	navigator.geolocation.getCurrentPosition(function(position) {
@@ -111,7 +138,7 @@ HarassmentMap.prototype.goToUserLocation = function(success, error){
 	        lat: position.coords.latitude,
 	        lng: position.coords.longitude
 	      };
-	      
+
 	      map.setCenter(pos);
 	      
 	      //execute user's success callback --> use  this to config infoWindow or graphical interactions...
@@ -125,6 +152,8 @@ HarassmentMap.prototype.goToUserLocation = function(success, error){
 	    // Browser doesn't support Geolocation
 	    error();
   	}
+
+
 
 }
 
