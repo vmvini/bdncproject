@@ -30,20 +30,17 @@ function loadNearMap(){
         
         //EXIBIR MODAL
         $('#myModalHorizontal').modal('show');
-        
-        //SETAR EVENTO DE BOTAO CANCELAR DENUNCIA
-        $('#cancelarBtn').on('click', function(){
-           $('#myModalHorizontal').modal('hide');
+
+        //SETAR EVENTO PARA QUANDO MODAL É FECHADO
+        $('#myModalHorizontal').on('hidden.bs.modal', function () {
             $('#denunciaBtn').off('click');
-            $('#cancelarBtn').off('click');
+            $('#myModalHorizontal').on('hidden.bs.modal');
         });
 
         //SETAR EVENTO CONFIRMAÇÃO DE DENUNCIA
         $('#denunciaBtn').on('click', function(){
 
             $('#denunciaBtn').off('click');
-            $('#cancelarBtn').off('click');
-
             console.log("realizou denuncia");
             
             //CRIAR OBJETO DENUNCIA Q SERÁ PERSISTIDO

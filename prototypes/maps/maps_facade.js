@@ -44,6 +44,8 @@ HarassmentMap.prototype.toggleHeatmap = function(){
 			lng
 			title
 			label
+
+	end: this callback runs when the iteration through the marks array is completed
 */
 HarassmentMap.prototype.loadMarks = function(marks, end){
 
