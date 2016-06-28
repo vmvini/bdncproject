@@ -10,6 +10,7 @@ function initMap() {
       		infowindow.setPosition(pos);
       		infowindow.setContent('Localização encontrada!');
           loadNearMap();
+
                  
       	}, function(){
       		//error callback
@@ -19,23 +20,11 @@ function initMap() {
      
 function loadNearMap(){
 
-    marks = [{lat:-5.637852598770853 , lng: -38.56201171875 , title:"title", label:"ASSEDIO" },
-
-     {lat: -6.599130675207247, lng:-40.23193359375, title:"title", label:"ESTUPRO" },
-     
-     {lat:-6.446317749457633, lng:-36.6064453125, title:"title", label:"VIOLENCIA" },
-
-     {lat:-7.406047717076259, lng:-38.583984375, title:"title", label:"ASSEDIO" }
-
-     ];
-
-     harassmentMap.loadMarks(marks);
-
-     harassmentMap.searchAutoComplete("new yor", function(results){
-        results.forEach(function(result){
-          console.log(result);
-        });     
+     harassmentMap.loadMarks(getMarks(), function(){
+      harassmentMap.toggleHeatmap();
      });
+
+     
 
      harassmentMap.setClickEvent(function(e, hmap){
         

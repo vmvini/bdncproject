@@ -10,10 +10,32 @@ HarassmentMap.prototype.createMap = function(divId){
 
 	});
 
+	this.mapmarks = [];
+	this.mappoints = [];
+
 	return this.map;
 
 }
 
+HarassmentMap.prototype.toggleHeatmap = function(){
+
+	if(this.heatmap.getMap() == null){
+		this.heatmap.setMap(this.map);
+		setMapMarksVisibility.call(this, false);
+
+	}
+	else{
+		this.heatmap.setMap(null);
+		setMapMarksVisibility.call(this, true);
+	}
+
+	function setMapMarksVisibility(bol){
+		this.mapmarks.forEach(function(m){
+			m.setVisible(bol);
+		});
+	}
+
+}
 
 /*
 	marks
@@ -23,26 +45,56 @@ HarassmentMap.prototype.createMap = function(divId){
 			title
 			label
 */
-HarassmentMap.prototype.loadMarks = function(marks){
+HarassmentMap.prototype.loadMarks = function(marks, end){
 
 	var map = this.map;
 	var i = 0;
+	var mapmarks = this.mapmarks;
+	var mappoints = this.mappoints;
+	var createHeatMap = this.createHeatMap;
+	var that = this;
+
+	var count = marks.length;
 
 	marks.forEach(function(mark){
 
 		setTimeout(function() {
 
-    		addMarker({
-    			map: map,
-				pos: { lat: mark.lat, lng: mark.lng },
-				title: mark.title,
-				label: mark.label
-    		});
+			var m = addMarker({
+	    			map: map,
+					pos: { lat: mark.lat, lng: mark.lng },
+					title: mark.title,
+					label: mark.label
+	    		});
+
+    		mapmarks.push(m);
+
+    		mappoints.push(m.getPosition());
+    		finishLoop();
 
     	}, ++i * 200);
 
 	});
 
+
+	var createHeatMap = function(){
+		that.heatmap = new google.maps.visualization.HeatmapLayer({
+			data: mappoints
+		});
+	}
+
+	function finishLoop(){
+		count--;
+		if(count == 0 ){
+
+			createHeatMap();
+			end();
+			console.log("MAP MARCACOES :: ",mapmarks);
+
+		}
+	}
+
+	
 
 }
 
