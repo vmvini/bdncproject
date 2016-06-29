@@ -193,10 +193,10 @@ HarassmentMap.prototype.getPosition = function(queryAutocompletePrediction, call
 		if( placeServiceStatus == google.maps.places.PlacesServiceStatus.OK ){
 			var geom = placeResult.geometry;
 			var position = { lat: geom.location.lat(), lng: geom.location.lng() };
-			callback(position);
+			callback(position, geom.viewport);
 		}
 		else{
-			callback(null, {msg:'Local não encontrado'});
+			callback(null, null, {msg:'Local não encontrado'});
 		}
 
 	});

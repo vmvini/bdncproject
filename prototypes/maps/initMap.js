@@ -22,8 +22,8 @@ function loadNearMap(){
 
      harassmentMap.loadMarks(getMarks(), function(){});
 
-     harassmentMap.searchAutoComplete("rua josé dantas nobre", function(res){
-        harassmentMap.getPosition(res[0], function(pos, error){
+     harassmentMap.searchAutoComplete("IFPB", function(res){
+        harassmentMap.getPosition(res[0], function(pos, viewport, error){
           if(error){
             console.log(error.msg);
             return;
@@ -41,6 +41,10 @@ function loadNearMap(){
                usuario: undefined
 
             };
+            if(viewport)
+              harassmentMap.map.fitBounds(viewport);
+            else
+              console.log("viewport nao conhecido");
 
             addMarker(new MarkProps(denuncia, harassmentMap.map));
 
