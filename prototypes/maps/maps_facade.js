@@ -154,6 +154,9 @@ HarassmentMap.prototype.createInfoWindow = function(){
 }
 
 
+/*
+	callback (arrayResults, error)
+*/
 HarassmentMap.prototype.searchAutoComplete = function(address, callback){
 
 	var location = this.map.getCenter();
@@ -169,19 +172,47 @@ HarassmentMap.prototype.searchAutoComplete = function(address, callback){
 	function searchLocaleResponse(callback){
 		
 		return function(results, status){
-			if (status == google.maps.places.PlacesServiceStatus.OK) {
+
+			placesServiceResponseBehavior(status, function(){
 				callback(results);
-			}
-			else{
-				callback(undefined, {msg: "Não foi possível encontrar esse local."});
-			}
+			
+			}, function(err){
+				callback(null, err);
+			} );
+
 		};
 
 	}
 
 }
 
+function placesServiceResponseBehavior(status, successBehavior, errorBehavior ){
+	
+	if(status == google.maps.places.PlacesServiceStatus.OK)
+		successBehavior();
 
+	else if(status == google.maps.places.PlacesServiceStatus.INVALID_REQUEST)
+		errorBehavior({msg: 'Requisição inválida'});
+
+	else if(status == google.maps.places.PlacesServiceStatus.OVER_QUERY_LIMIT)
+		errorBehavior({msg: 'A aplicação chegou ao seu limite de requisições.'});
+	
+	else if(status == google.maps.places.PlacesServiceStatus.REQUEST_DENIED)
+		errorBehavior({msg: 'A aplicação não possui permissão para usar o serviço PlacesService'});
+	
+	else if(status == google.maps.places.PlacesServiceStatus.UNKNOWN_ERROR)
+		errorBehavior({msg: 'Desculpe, ocorreu um erro no servidor. Tente mais tarde.'});
+	
+	else if(status == google.maps.places.PlacesServiceStatus.ZERO_RESULTS)
+		errorBehavior({msg: 'Não foi possível encontrar esse local.'});
+	
+}
+
+
+
+/*
+	callback (position, viewport, error)
+*/
 HarassmentMap.prototype.getPosition = function(queryAutocompletePrediction, callback){
 
 	var placeId = queryAutocompletePrediction.place_id;
@@ -190,14 +221,17 @@ HarassmentMap.prototype.getPosition = function(queryAutocompletePrediction, call
 
 	placesService.getDetails({placeId: placeId}, function(placeResult, placeServiceStatus){
 		
-		if( placeServiceStatus == google.maps.places.PlacesServiceStatus.OK ){
+		var ok = function(){
 			var geom = placeResult.geometry;
 			var position = { lat: geom.location.lat(), lng: geom.location.lng() };
 			callback(position, geom.viewport);
+		};
+
+		var errorBehavior = function(err){
+			callback(null, null, err);
 		}
-		else{
-			callback(null, null, {msg:'Local não encontrado'});
-		}
+		
+		placesServiceResponseBehavior(placeServiceStatus, ok, errorBehavior);
 
 	});
 
