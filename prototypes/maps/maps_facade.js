@@ -70,9 +70,8 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 					label: mark.label
 	    		});
 
-    		mapmarks.push(m);
-
-    		mappoints.push(m.getPosition());
+			that.bindMark(m);
+			
     		finishLoop();
 
     	}, ++i * 200);
@@ -111,6 +110,14 @@ HarassmentMap.prototype.setClickEvent = function(callback){
 	this.map.addListener('click', function(e){
 		callback(e, that);
 	});
+}
+
+
+HarassmentMap.prototype.bindMark = function(mark){
+
+	this.mapmarks.push(mark);
+	this.mappoints.push(mark.getPosition());
+
 }
 
 /*

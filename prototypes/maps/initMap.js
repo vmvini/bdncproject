@@ -55,7 +55,10 @@ function loadNearMap(){
             else
               console.log("viewport nao conhecido");
 
-            addMarker(new MarkProps(denuncia, harassmentMap.map));
+            
+            harassmentMap.bindMark(
+            addMarker(new MarkProps(denuncia, harassmentMap.map))
+            );
 
 
 
@@ -96,7 +99,9 @@ function loadNearMap(){
             console.log(denuncia);
 
             //ADICIONAR MARCAÇÃO DA DENUNCIA NO MAPA
-            addMarker(new MarkProps(denuncia, hmap.map));
+            harassmentMap.bindMark(
+              addMarker(new MarkProps(denuncia, hmap.map))
+            );
 
             //FECHAR MODAL
             $('#myModalHorizontal').modal('hide');
