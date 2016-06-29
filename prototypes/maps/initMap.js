@@ -22,7 +22,7 @@ function loadNearMap(){
 
      harassmentMap.loadMarks(getMarks(), function(){});
 
-     harassmentMap.searchAutoComplete("Rua Serafim Bernardo", function(res, err){
+     harassmentMap.searchAutoComplete("Praia Shopping Natal", function(res, err){
         if(err){
           console.log(err.msg);
           return;
@@ -35,6 +35,8 @@ function loadNearMap(){
           }
           console.log("POSIÇÃO DO LOCAL PESQUISADO: ", pos);
           //REALIZAR MARCAÇAO
+
+          harassmentMap.map.setCenter(pos);
 
           var denuncia = {
 

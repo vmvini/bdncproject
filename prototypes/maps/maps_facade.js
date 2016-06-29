@@ -6,7 +6,7 @@ HarassmentMap.prototype.createMap = function(divId){
 	this.map = new google.maps.Map(document.getElementById(divId), {
 
 		center: {lat: -34.397, lng: 150.644},
-    	zoom: 6
+    	zoom: 15
 
 	});
 
@@ -155,7 +155,7 @@ HarassmentMap.prototype.createInfoWindow = function(){
 
 
 /*
-	callback (arrayResults, error)
+	callback (arrayResults<QueryAutocompletePrediction>, error)
 */
 HarassmentMap.prototype.searchAutoComplete = function(address, callback){
 
