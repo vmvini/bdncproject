@@ -173,7 +173,7 @@ HarassmentMap.prototype.searchAutoComplete = function(address, callback){
 				callback(results);
 			}
 			else{
-				callback(['Não foi possível encontrar esse local.']);
+				callback(undefined, {msg: "Não foi possível encontrar esse local."});
 			}
 		};
 

@@ -22,7 +22,12 @@ function loadNearMap(){
 
      harassmentMap.loadMarks(getMarks(), function(){});
 
-     harassmentMap.searchAutoComplete("IFPB", function(res){
+     harassmentMap.searchAutoComplete("Rua Serafim Bernardo", function(res, err){
+        if(err){
+          console.log(err.msg);
+          return;
+        }
+
         harassmentMap.getPosition(res[0], function(pos, viewport, error){
           if(error){
             console.log(error.msg);
