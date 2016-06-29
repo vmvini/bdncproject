@@ -22,11 +22,12 @@ HarassmentMap.prototype.toggleHeatmap = function(){
 	if(this.heatmap.getMap() == null){
 		this.heatmap.setMap(this.map);
 		setMapMarksVisibility.call(this, false);
-
+		return true;
 	}
 	else{
 		this.heatmap.setMap(null);
 		setMapMarksVisibility.call(this, true);
+		return false;
 	}
 
 	function setMapMarksVisibility(bol){
@@ -165,7 +166,7 @@ HarassmentMap.prototype.searchAutoComplete = function(address, callback){
 	service.getQueryPredictions({ 
 		input: address, 
 		location: location,
-		radius:0
+		radius:500
 	}, searchLocaleResponse(callback) );
 
 
@@ -229,7 +230,7 @@ HarassmentMap.prototype.getPosition = function(queryAutocompletePrediction, call
 
 		var errorBehavior = function(err){
 			callback(null, null, err);
-		}
+		};
 		
 		placesServiceResponseBehavior(placeServiceStatus, ok, errorBehavior);
 

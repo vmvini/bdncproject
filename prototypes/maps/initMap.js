@@ -20,7 +20,9 @@ function initMap() {
      
 function loadNearMap(){
 
-     harassmentMap.loadMarks(getMarks(), function(){});
+     harassmentMap.loadMarks(getMarks(), function(){
+      HeatMapControl(harassmentMap);
+     });
 
      harassmentMap.searchAutoComplete("Praia Shopping Natal", function(res, err){
         if(err){
