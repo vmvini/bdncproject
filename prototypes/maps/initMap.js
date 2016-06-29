@@ -20,8 +20,33 @@ function initMap() {
      
 function loadNearMap(){
 
-     harassmentMap.loadMarks(getMarks(), function(){
-      harassmentMap.toggleHeatmap();
+     harassmentMap.loadMarks(getMarks(), function(){});
+
+     harassmentMap.searchAutoComplete("rua josé dantas nobre", function(res){
+        harassmentMap.getPosition(res[0], function(pos, error){
+          if(error){
+            console.log(error.msg);
+            return;
+          }
+          console.log("POSIÇÃO DO LOCAL PESQUISADO: ", pos);
+          //REALIZAR MARCAÇAO
+
+          var denuncia = {
+
+               pos: pos,
+               tags: ['um', 'dois','tres'],
+               vitima: false,
+               crime: "ASSEDIO",
+               anonimo: false,
+               usuario: undefined
+
+            };
+
+            addMarker(new MarkProps(denuncia, harassmentMap.map));
+
+
+
+        });
      });
 
      

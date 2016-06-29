@@ -62,6 +62,8 @@ function addMarker(markProps, markClick ){
 
 
 
+
+
 function MarkProps(denuncia, map){
 
 	this.map = map;
@@ -83,14 +85,7 @@ function getMarks(){
      
      {lat:-6.446317749457633, lng:-36.6064453125, title:"title", label:"VIOLENCIA" },
 
-     {lat:-7.406047717076259, lng:-38.583984375, title:"title", label:"ASSEDIO" },
-
-     {lat:-8.406047717076259, lng:-34.583984375, title:"title", label:"ASSEDIO" },
-     {lat:-5.406047717076259, lng:-29.583984375, title:"title", label:"ASSEDIO" },
-     {lat:-10.406047717076259, lng:-40.583984375, title:"title", label:"ASSEDIO" },
-     {lat:-11.406047717076259, lng:-39.583984375, title:"title", label:"ASSEDIO" },
-     {lat:-5.406047717076259, lng:-30.583984375, title:"title", label:"ASSEDIO" }
-
+     {lat:-7.406047717076259, lng:-38.583984375, title:"title", label:"ASSEDIO" }
      ];
 }
 

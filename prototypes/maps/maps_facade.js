@@ -181,6 +181,30 @@ HarassmentMap.prototype.searchAutoComplete = function(address, callback){
 
 }
 
+
+HarassmentMap.prototype.getPosition = function(queryAutocompletePrediction, callback){
+
+	var placeId = queryAutocompletePrediction.place_id;
+
+	var placesService = new google.maps.places.PlacesService(this.map);
+
+	placesService.getDetails({placeId: placeId}, function(placeResult, placeServiceStatus){
+		
+		if( placeServiceStatus == google.maps.places.PlacesServiceStatus.OK ){
+			var geom = placeResult.geometry;
+			var position = { lat: geom.location.lat(), lng: geom.location.lng() };
+			callback(position);
+		}
+		else{
+			callback(null, {msg:'Local não encontrado'});
+		}
+
+	});
+
+}
+
+
+
 HarassmentMap.prototype.goToUserLocation = function(success, error){
 
 	var map = this.map;
