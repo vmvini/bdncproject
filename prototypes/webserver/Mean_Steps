@@ -10,6 +10,10 @@ sudo npm install -g express-generator
 
 express
 
+4- instalar dependencias do projeto
+
+npm install
+
 
 
 
