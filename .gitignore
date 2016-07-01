@@ -1,3 +1,4 @@
 prototypes/bower_components/
 bower_components/
 prototypes/webserver/node_modules/
+prototypes/webserver/public/
