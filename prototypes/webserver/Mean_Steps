@@ -1,0 +1,16 @@
+1- instalar express
+
+sudo npm install -g express
+
+2- instalar o node-express-generator
+
+sudo npm install -g express-generator
+
+3- criar projeto express, na pasta do projeto com comando abaixo:
+
+express
+
+
+
+
+
