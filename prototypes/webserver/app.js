@@ -5,13 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+var routes = require('./app_server/routes/index');
+var users = require('./app_server/routes/users');
 
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
@@ -22,10 +22,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+/*meu middleware que só imprime esse texto antes de cada requisição*/
+app.use(function(req, res, next){
+  console.log("STUDYING NODEJS/EXPRESS DEVELOPMENT");
+  next();
+});
+
+
+
+/*USANDO MIDDLEWARE DE ROTAS*/
+/*MIDDLEWARE COM MOUNT PATH*/
 app.use('/', routes);
 app.use('/users', users);
 
+
+/*SE NO MIDDLEWARE ABAIXO, É PORQUE NÃO ENCONTROU A URL REQUISITADA*/
 // catch 404 and forward to error handler
+/*MIDDLEWARE SEM MOUNT PATH*/
+/*essa função anonima é sempre executada quando o app recebe uma requisição*/
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -36,6 +51,8 @@ app.use(function(req, res, next) {
 
 // development error handler
 // will print stacktrace
+/*MIDDLEWARE SEM MOUNT PATH*/
+/*essa função anonima é sempre executada quando o app recebe uma requisição*/
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -48,6 +65,8 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
+/*MIDDLEWARE SEM MOUNT PATH*/
+/*essa função anonima é sempre executada quando o app recebe uma requisição*/
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
@@ -55,6 +74,7 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
 
 
 module.exports = app;

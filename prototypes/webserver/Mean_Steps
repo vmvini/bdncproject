@@ -15,6 +15,27 @@ express
 npm install
 
 
+5- inicie o servidor 
+
+npm start
+
+6- teste
+
+localhost:3000
+
+
+7- criar pasta app_server na raiz do projeto
+
+8- dentro de app_server, criar controllers, models,
+
+9- mover para app_server as pastas routes e views
+
+
+10- corrija as referencias aos routes e views no código
+
+
+
+
 
 
 
