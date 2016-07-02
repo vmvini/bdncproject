@@ -8,6 +8,14 @@ MongoDB.on('error', function(err) {
 	console.log(err.message); 
 });
 
+MongoDB.on('disconnected', function(){
+	console.log('mongodb desconectou!');
+});
+
+MongoDB.on('connected', function(){
+	console.log('mongodb conectou!');
+});
+
 MongoDB.once('open', function() {
   console.log("mongodb connection open");
 });
@@ -40,3 +48,6 @@ process.on('SIGTERM', function(){
 		process.exit(0);
 	});
 });
+
+
+require('./reports.js');
