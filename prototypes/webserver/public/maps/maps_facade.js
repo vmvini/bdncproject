@@ -68,53 +68,47 @@ HarassmentMap.prototype.toggleHeatmap = function(){
 */
 HarassmentMap.prototype.loadMarks = function(marks, end){
 
-	var map = this.map;
 	var i = 0;
-	var mapmarks = this.mapmarks;
-	var mappoints = this.mappoints;
-	var createHeatMap = this.createHeatMap;
-	var that = this;
-
 	var count = marks.length;
+	var createHeatMap;
 
-	marks.forEach(function(mark){
+	marks.forEach( (function(mark){
 
-		setTimeout(function() {
+		setTimeout((function(){
 
 			var m = addMarker({
-	    			map: map,
-					pos: { lat: mark.lat, lng: mark.lng },
-					title: mark.title,
-					label: mark.label
-	    		});
+				map: this.map,
+				pos: { lat: mark.lat, lng: mark.lng },
+				title: mark.title,
+				label: mark.label
+			});
 
-			that.bindMark(m);
-			
-    		finishLoop();
+			this.bindMark(m);
+			finishLoop();
 
-    	}, ++i * 200);
+		}).bind(this), ++i * 200);
 
-	});
+	}).bind(this) );
 
 
-	var createHeatMap = function(){
-		that.heatmap = new google.maps.visualization.HeatmapLayer({
-			data: mappoints
+	createHeatMap = ( function(){
+
+		this.heatmap = new google.maps.visualization.HeatmapLayer({
+			data: this.mappoints
 		});
-	}
+
+	} ).bind(this);
 
 	function finishLoop(){
+		
 		count--;
 		if(count == 0 ){
 
 			createHeatMap();
 			end();
-			console.log("MAP MARCACOES :: ",mapmarks);
-
+		
 		}
 	}
-
-	
 
 }
 
