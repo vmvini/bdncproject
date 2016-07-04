@@ -20,11 +20,11 @@ var reportSchema = new mongoose.Schema({
 	user:{
 		type: userSchema,
 		required:true
-	}
+	},
 
 	tags: [String],
 
-	victim:{ type: Boolean, default: true }
+	victim:{ type: Boolean, default: true },
 
 	crime: {
 		type: String,
