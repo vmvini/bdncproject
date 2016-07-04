@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 
-var userSchema = require('./user');
+var userSchema = require('./user').userSchema;
 
 var coordinateSchema = new mongoose.Schema({
 
-	lat: {type: Number, required:true }
+	lat: {type: Number, required:true },
 	lng: {type: Number, required:true } 
 
 });
@@ -36,5 +36,11 @@ var reportSchema = new mongoose.Schema({
 
 	date: { type: Date, default: Date.now },
 
+
+	//must be an array in this order [lng, lat] 
+	geoCoords: { type: [Number], index: '2dsphere' }
+
 });
 
+
+var ReportModel = mongoose.model('Report', reportSchema );

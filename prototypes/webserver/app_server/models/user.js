@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var validadeEmail = function(email){
 	var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    return re.test(email)
+    return re.test(email);
 }
 
 var userSchema = new mongoose.Schem({
@@ -21,3 +21,8 @@ var userSchema = new mongoose.Schem({
 	imagePath: {type:String, required:true }
 
 });
+
+
+module.exports.userSchema = userSchema;
+
+module.exports.UserModel = mongoose.model('User', userSchema );
