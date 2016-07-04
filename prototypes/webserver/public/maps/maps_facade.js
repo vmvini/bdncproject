@@ -1,12 +1,28 @@
-function HarassmentMap(){}
-
-
-HarassmentMap.prototype.createMap = function(divId){
+function HarassmentMap(){
 
 	//properties
 	this.mapmarks = [];
 	this.mappoints = [];
 	this.infoWindow;
+	this.heatmap;
+
+	//methods
+	this.createMap;
+	this.toggleHeatmap;
+	this.loadMarks;
+	this.setClickEvent;	
+	this.bindMark;
+	this.createInfoWindow;
+	this.searchAutoComplete;
+	this.getPosition;
+	this.goToUserLocation;
+
+}
+
+
+HarassmentMap.prototype.createMap = function(divId){
+
+	
 
 	this.map = new google.maps.Map(document.getElementById(divId), {
 
