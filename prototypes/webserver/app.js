@@ -6,9 +6,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require('./app_server/models/db');
 
-
+//ROTAS DE FLUXO DE PÁGINAS
 var routes = require('./app_server/routes/index');
 var users = require('./app_server/routes/users');
+
+//ROTAS DA API DE COMUNICAÇÃO COM O BANCO DE DADOS
+var reportsApi = require('.app_api/routes/reports');
+var usersApi = require('.app_api/routes/users');
+
+
 
 var app = express();
 
@@ -37,6 +43,9 @@ app.use(function(req, res, next){
 /*MIDDLEWARE COM MOUNT PATH*/
 app.use('/', routes);
 app.use('/users', users);
+
+app.use('/api/', reportsApi);
+app.use('/api/', usersApi);
 
 
 /*SE NO MIDDLEWARE ABAIXO, É PORQUE NÃO ENCONTROU A URL REQUISITADA*/
