@@ -3,15 +3,17 @@ function HarassmentMap(){}
 
 HarassmentMap.prototype.createMap = function(divId){
 
+	//properties
+	this.mapmarks = [];
+	this.mappoints = [];
+	this.infoWindow;
+
 	this.map = new google.maps.Map(document.getElementById(divId), {
 
 		center: {lat: -34.397, lng: 150.644},
     	zoom: 15
 
 	});
-
-	this.mapmarks = [];
-	this.mappoints = [];
 
 	return this.map;
 
@@ -105,11 +107,11 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 */
 HarassmentMap.prototype.setClickEvent = function(callback){
 	
-	var that = this;
+	var bondCallback = (function(e){
+		callback(e, this);
+	}).bind(this);
 
-	this.map.addListener('click', function(e){
-		callback(e, that);
-	});
+	this.map.addListener('click', bondCallback );
 }
 
 
