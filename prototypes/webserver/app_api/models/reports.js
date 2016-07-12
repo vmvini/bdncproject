@@ -38,9 +38,9 @@ var reportSchema = new mongoose.Schema({
 
 
 	//must be an array in this order [lng, lat] 
-	geoCoords: { type: [Number], index: '2dsphere' }
+	geoCoords: { type: [Number], index: '2dsphere', required:true }
 
 });
 
 
-var ReportModel = mongoose.model('Report', reportSchema );
+mongoose.model('Report', reportSchema );

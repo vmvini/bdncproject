@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var validateEmail = function(email){
 	var re = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return re.test(email);
-}
+};
 
 var userSchema = new mongoose.Schema({
 
@@ -22,7 +22,7 @@ var userSchema = new mongoose.Schema({
 
 });
 
+mongoose.model('User', userSchema );
 
 module.exports.userSchema = userSchema;
 
-module.exports.UserModel = mongoose.model('User', userSchema );
