@@ -97,7 +97,7 @@ module.exports.newReport = function(req, res){
 
 module.exports.updateReport = function(req, res){
 
-	var reportid = req.params.reportId;
+	var reportid = req.params.reportid;
 	var newreport = req.params.newReport;
 
 	if(!reportid || !newreport){
@@ -146,7 +146,7 @@ module.exports.updateReport = function(req, res){
 
 module.exports.deleteReport = function(req, res){
 
-	var reportid = req.params.reportId;
+	var reportid = req.params.reportid;
 	if(reportid){
 		Report.findByIdAndRemove(reportid)
 			.exec(
