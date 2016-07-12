@@ -154,6 +154,7 @@ module.exports.deleteReport = function(req, res){
 					if(err){
 						res.status(404);
 						res.json(err);	
+						return;
 					}
 					res.status(204);
 					res.json({
