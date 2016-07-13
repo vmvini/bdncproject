@@ -12,6 +12,7 @@
     "angular-route": "^1.5.7",
     "bootstrap": "*",
     "jquery.ui": "1.8.x",
-    "angular": "^1.5.7"
+    "angular": "^1.5.7",
+    "jquery-tagit": "*"
   }
 }
