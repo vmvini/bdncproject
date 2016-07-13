@@ -1,9 +1,4 @@
-prototypes/bower_components/
-bower_components/
-prototypes/webserver/node_modules/
-prototypes/webserver/public/bower_components/
-prototypes/webserver/public/css/
-prototypes/webserver/public/fonts/
-prototypes/webserver/public/images/
-prototypes/webserver/public/js/
-prototypes/webserver/npm-debug.log
+public/bower_components/
+node_modules/
+npm-debug.log
+Mean_Steps

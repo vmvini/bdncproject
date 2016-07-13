@@ -1,9 +1,0 @@
-{
-  "name": "bdnc",
-  "version": "0.0.1",
-  "dependencies": {
-    "jquery.ui":"1.8.x",
-    "bootstrap":"latest"
-  },
-  "private": true
-}
