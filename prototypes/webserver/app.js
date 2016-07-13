@@ -32,15 +32,14 @@ app.use(express.static(path.join(__dirname, 'app_client')));
 app.use('/api', reportsApi);
 app.use('/api', usersApi);
 
-
 //central route to Single Page App
-app.use('/', function(req, res){
+app.get('/', function(req, res){
 
   res.sendFile(__dirname + '/app_client/views/index.html');
 
 });
 
-app.use('/*', function(req, res){
+app.get('*', function(req, res){
 
   res.status(404);
   res.json({"message":"page not found"});

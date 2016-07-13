@@ -1,0 +1,17 @@
+{
+  "name": "HarassmentMap",
+  "authors": [
+    "Marcus Vinicius <vmvini@hotmail.com>"
+  ],
+  "description": "Collaborative map of harassment reports against women",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "dependencies": {
+    "angular-route": "^1.5.7",
+    "bootstrap": "*",
+    "jquery.ui": "1.8.x",
+    "angular": "^1.5.7"
+  }
+}
