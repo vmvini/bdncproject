@@ -90,7 +90,7 @@ module.exports.newReport = function(req, res){
 	}
 	else{
 		res.status(404);
-		res.json("message": "No report provided");
+		res.json({"message": "No report provided"});
 	}
 
 };

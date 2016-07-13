@@ -4,17 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+
+//load database
 require('./app_api/models/db');
 
-//ROTAS DE FLUXO DE PÁGINAS
-var routes = require('./app_server/routes/index');
-var users = require('./app_server/routes/users');
-
-//ROTAS DA API DE COMUNICAÇÃO COM O BANCO DE DADOS
-var reportsApi = require('.app_api/routes/reports');
-var usersApi = require('.app_api/routes/users');
-
-
+//load database models api
+var reportsApi = require('./app_api/routes/reports');
+var usersApi = require('./app_api/routes/users');
 
 var app = express();
 
@@ -29,41 +25,40 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'app_client')));
 
 
-/*meu middleware que só imprime esse texto antes de cada requisição*/
-app.use(function(req, res, next){
-  console.log("STUDYING NODEJS/EXPRESS DEVELOPMENT");
-  next();
+//routes for api
+app.use('/api', reportsApi);
+app.use('/api', usersApi);
+
+
+//central route to Single Page App
+app.use('/', function(req, res){
+
+  res.sendFile(__dirname + '/app_client/views/index.html');
+
+});
+
+app.use('/*', function(req, res){
+
+  res.status(404);
+  res.json({"message":"page not found"});
+
 });
 
 
 
-/*USANDO MIDDLEWARE DE ROTAS*/
-/*MIDDLEWARE COM MOUNT PATH*/
-app.use('/', routes);
-app.use('/users', users);
-
-app.use('/api/', reportsApi);
-app.use('/api/', usersApi);
-
-
-/*SE NO MIDDLEWARE ABAIXO, É PORQUE NÃO ENCONTROU A URL REQUISITADA*/
 // catch 404 and forward to error handler
-/*MIDDLEWARE SEM MOUNT PATH*/
-/*essa função anonima é sempre executada quando o app recebe uma requisição*/
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handlers
 
 // development error handler
 // will print stacktrace
-/*MIDDLEWARE SEM MOUNT PATH*/
-/*essa função anonima é sempre executada quando o app recebe uma requisição*/
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
@@ -76,8 +71,6 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-/*MIDDLEWARE SEM MOUNT PATH*/
-/*essa função anonima é sempre executada quando o app recebe uma requisição*/
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {

@@ -42,7 +42,7 @@ function useridBehavior(req, res, callback, validation){
 			}
 			else if(!user){
 				res.status(404);
-				res.json("message":"user not found!");
+				res.json({"message":"user not found!"});
 			}
 			else{
 				callback(user);
