@@ -33,7 +33,7 @@ app.use('/api', usersApi);
 //central route to Single Page App
 app.get('/', function(req, res){
 
-  res.sendFile(__dirname + '/app_client/views/index.html');
+  res.sendFile(__dirname + '/app_server/template/template.html');
 
 });
 
