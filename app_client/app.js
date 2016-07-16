@@ -1,4 +1,4 @@
-angular.module('mapaAssedioApp', ['ngRoute']);
+angular.module('mapaAssedioApp', ['ngRoute', 'ngTagsInput']);
 
 
 
