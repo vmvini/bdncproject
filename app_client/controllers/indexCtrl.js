@@ -1,8 +1,7 @@
 
 angular
 	.module('mapaAssedioApp')
-	.controller('indexCtrl', indexCtrl)
-	.controller('reportModalCtrl', reportModalCtrl );
+	.controller('indexCtrl', indexCtrl);
 
 function indexCtrl($scope, reportsService, usersService, $uibModal, $log ){
 
@@ -25,6 +24,7 @@ function indexCtrl($scope, reportsService, usersService, $uibModal, $log ){
 			size: size,
 			resolve: {
         		pos: pos
+        		//user: usuarioLogado
       		}
 		});
 
@@ -70,28 +70,5 @@ function indexCtrl($scope, reportsService, usersService, $uibModal, $log ){
 
 
 	
-
-}
-
-
-
-function reportModalCtrl($scope, $uibModalInstance, pos){
-
-	var vm = this;
-
-	vm.denuncia = {};
-	vm.denuncia.pos = pos;
-	vm.denuncia.tipo = "assedio";
-
-	vm.ok = function(){
-		console.log(vm.denuncia);
-		 $uibModalInstance.close("modal close method");
-	};
-
-	vm.cancel = function(){
-		$uibModalInstance.dismiss('cancel');
-	}
-
-
 
 }
