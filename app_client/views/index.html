@@ -4,11 +4,11 @@
 				<h1><a href="index.html">#EuNãoMereçoSerEstuprada</a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="#">Página Inicial {{hello}}</a></li>
-						<li><a href="#">{{vm.login}}</a></li>
-						<li><a href="#">{{vm.register}}</a></li>
+						<li><a href="#">Página Inicial</a></li>
+						<li><a href="#">{{index.login}}</a></li>
+						<li><a href="#">{{index.register}}</a></li>
 						<li><a href="#">Buscar</a></li>
-						<li><a href="#">{{vm.logout}}</a></li>
+						<li><a href="#">{{index.logout}}</a></li>
 					</ul>
 				</nav>
 			</header>
@@ -72,6 +72,30 @@
 					</ul>
 				</div>
 			</footer>
+
+
+
+<!-- ANGULAR MODAL  -->
+<script type="text/ng-template" id="reportModal.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Denuncia</h3>
+        </div>
+        <div class="modal-body">
+        	<h1>Testando modal</h1>
+            <!--ul>
+                <li ng-repeat="item in items">
+                    <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b-->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="reportModal.ok()">OK</button>
+            <button class="btn btn-warning" type="button" ng-click="reportModal.cancel()">Cancel</button>
+        </div>
+    </script>
+
+
 
 
 <!-- Modal -->
