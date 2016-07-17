@@ -15,15 +15,17 @@ function indexCtrl($scope, reportsService, usersService, $uibModal, $log ){
 	vm.register = "cadastre-se";
 	vm.logout = "sair";
 
-
-	vm.openReportModal = function(size){
+	vm.openReportModal = function(size, pos){
 		
 		var modalInstance = $uibModal.open({
 			animation: true,
 			templateUrl: '/views/reportModal/reportModal.html',
 			controller:  'reportModalCtrl',
 			controllerAs: 'reportModal',
-			size: size
+			size: size,
+			resolve: {
+        		pos: pos
+      		}
 		});
 
 		modalInstance.result.then(function(msg){
@@ -58,7 +60,8 @@ function indexCtrl($scope, reportsService, usersService, $uibModal, $log ){
       	vm.harassmentMap.setClickEvent(function(e, hmap){
 
       		$scope.$apply(function(){
-      			vm.openReportModal('lg');
+      			var pos = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+      			vm.openReportModal('lg', pos);
       		});
 
       	});
@@ -72,11 +75,16 @@ function indexCtrl($scope, reportsService, usersService, $uibModal, $log ){
 
 
 
-function reportModalCtrl($scope, $uibModalInstance){
+function reportModalCtrl($scope, $uibModalInstance, pos){
 
 	var vm = this;
 
+	vm.denuncia = {};
+	vm.denuncia.pos = pos;
+	vm.denuncia.tipo = "assedio";
+
 	vm.ok = function(){
+		console.log(vm.denuncia);
 		 $uibModalInstance.close("modal close method");
 	};
 
