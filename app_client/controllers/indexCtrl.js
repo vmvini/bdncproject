@@ -3,7 +3,7 @@ angular
 	.module('mapaAssedioApp')
 	.controller('indexCtrl', indexCtrl);
 
-function indexCtrl(){
+function indexCtrl($scope, reportsService, usersService ){
 
 	//using ViewModel : angular instantiate this controller with new. I'm getting the object passed as this.
 	//the this object is bound to $scope
@@ -14,6 +14,8 @@ function indexCtrl(){
 	vm.register = "cadastre-se";
 	vm.logout = "sair";
 
+
+	
 
 }
 

@@ -1,4 +1,4 @@
-angular.module('mapaAssedioApp', ['ngRoute', 'ngTagsInput']);
+angular.module('mapaAssedioApp', ['ngRoute', 'ngTagsInput', 'ngAnimate', 'ngTouch']);
 
 
 
