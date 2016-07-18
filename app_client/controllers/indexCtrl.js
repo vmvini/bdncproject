@@ -4,18 +4,25 @@
 		.module('mapaAssedioApp')
 		.controller('indexCtrl', indexCtrl);
 
-	indexCtrl.$inject = ['$scope', 'reportsService', 'usersService', '$uibModal', '$log'];
-	function indexCtrl($scope, reportsService, usersService, $uibModal, $log ){
+	indexCtrl.$inject = ['$scope', 'reportsService', 'usersService', '$uibModal', '$log', 'authService', '$location'];
+	function indexCtrl($scope, reportsService, usersService, $uibModal, $log, authService, $location ){
 
 		//using ViewModel : angular instantiate this controller with new. I'm getting the object passed as this.
 		//the this object is bound to $scope
-		//so, i dont need $scope reference anymore
+		//so, i dont need use $scope reference for all situations
 		var vm = this;
 
-		vm.login = "login";
-		vm.register = "cadastre-se";
-		vm.logout = "sair";
+		vm.loggedUser = authService.getLoggedUser();
 
+		vm.isLoggedIn = authService.isLoggedIn();
+		
+		vm.logout = function(){
+			authService.logout();
+			$location.path('/');
+		};
+
+
+		//setting report modal angular ui
 		vm.openReportModal = function(size, pos){
 			
 			var modalInstance = $uibModal.open({

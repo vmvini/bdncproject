@@ -4,11 +4,11 @@
 				<h1><a href="index.html">#EuNãoMereçoSerEstuprada</a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="#">Página Inicial</a></li>
-						<li><a href="#">{{index.login}}</a></li>
-						<li><a href="#">{{index.register}}</a></li>
-						<li><a href="#">Buscar</a></li>
-						<li><a href="#">{{index.logout}}</a></li>
+						<li><a href="">Página Inicial</a></li>
+						<li ng-hide="index.isLoggedIn"> <a href="">Entrar</a> </li>
+						<li ng-hide="index.isLoggedIn"><a href="">Cadastre-se</a></li>
+						<li><a href="">Buscar</a></li>
+						<li ng-show="index.isLoggedIn"><a href="" ng-click="index.logout()" >Sair</a></li>
 					</ul>
 				</nav>
 			</header>
