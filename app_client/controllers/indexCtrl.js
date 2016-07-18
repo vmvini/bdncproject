@@ -15,10 +15,29 @@
 		vm.loggedUser = authService.getLoggedUser();
 
 		vm.isLoggedIn = authService.isLoggedIn();
-		
+
 		vm.logout = function(){
 			authService.logout();
 			$location.path('/');
+		};
+
+		vm.openRegisterModal = function(){
+			var modalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: '/views/userModal/userRegister.html',
+				controller:  'userRegisterCtrl',
+				controllerAs: 'vm',
+				size: 'lg',
+				resolve: {
+					
+	        	}
+	        });
+
+			modalInstance.result.then(function(msg){
+				console.log("fechando: " + msg);
+			}, function(){
+				$log.info('Modal dismissed at: ' + new Date());
+			});	
 		};
 
 
@@ -29,7 +48,7 @@
 				animation: true,
 				templateUrl: '/views/reportModal/reportModal.html',
 				controller:  'reportModalCtrl',
-				controllerAs: 'reportModal',
+				controllerAs: 'vm',
 				size: size,
 				resolve: {
 					pos: pos

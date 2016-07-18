@@ -30,10 +30,9 @@
 
                     </div>
                   </div>
-
-
+                  
                   <h3>Tags</h3> 
-                  <tags-input ng-model="reportModal.denuncia.tags"></tags-input>
+                  <tags-input ng-model="vm.denuncia.tags"></tags-input>
 
                   <div class="checkbox">
                     <label>
@@ -49,6 +48,6 @@
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="reportModal.ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="reportModal.cancel()">Cancel</button>
+    <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
 </div>
