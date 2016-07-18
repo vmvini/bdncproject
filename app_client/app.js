@@ -1,9 +1,11 @@
-angular.module('mapaAssedioApp', ['ngRoute', 'ngTagsInput', 'ngAnimate', 'ngTouch', 'ui.bootstrap']);
+(function(){
+
+	angular.module('mapaAssedioApp', ['ngRoute', 'ngTagsInput', 'ngAnimate', 'ngTouch', 'ui.bootstrap']);
 
 
 
-function config($routeProvider){
-	$routeProvider
+	function config($routeProvider){
+		$routeProvider
 		.when('/', {
 
 			templateUrl: 'views/index.html',
@@ -12,8 +14,12 @@ function config($routeProvider){
 
 		})
 		.otherwise({redirectTo: '/'});
-}
+	}
 
-angular
-	.module('mapaAssedioApp')
-	.config(['$routeProvider', config]);
+	angular
+		.module('mapaAssedioApp')
+		.config(['$routeProvider', config]);
+
+})();
+
+

@@ -1,30 +1,32 @@
-angular
-	.module('mapaAssedioApp')
-	.controller('reportModalCtrl', reportModalCtrl );
+(function(){
 
-function reportModalCtrl($scope, $uibModalInstance, pos){
+	angular
+		.module('mapaAssedioApp')
+		.controller('reportModalCtrl', reportModalCtrl );
 
-	var vm = this;
+	function reportModalCtrl($scope, $uibModalInstance, pos){
 
-	vm.denuncia = {
-		pos: pos,
-		tags: [],
-		victim: false,
-		crime: "",
-		anonymous: false,
-		user:{}, 
-		date:{}
-	};
+		var vm = this;
 
-	vm.ok = function(){
-		console.log(vm.denuncia);
-		 $uibModalInstance.close("modal close method");
-	};
+		vm.denuncia = {
+			pos: pos,
+			tags: [],
+			victim: false,
+			crime: "",
+			anonymous: false,
+			user:{}, 
+			date:{}
+		};
 
-	vm.cancel = function(){
-		$uibModalInstance.dismiss('cancel');
+		vm.ok = function(){
+			console.log(vm.denuncia);
+			 $uibModalInstance.close("modal close method");
+		};
+
+		vm.cancel = function(){
+			$uibModalInstance.dismiss('cancel');
+		}
 	}
 
+})();
 
-
-}

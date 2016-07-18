@@ -1,16 +1,21 @@
-angular
-	.module('mapaAssedioApp')
-	.service('usersService', usersService);
+(function(){
 
-function usersService($http){
+	angular
+		.module('mapaAssedioApp')
+		.service('usersService', usersService);
+
+	function usersService($http){
 
 
-	return {
+		return {
 
-		newUser : function(user){
-			return $http.post('/api/users', user);
-		}
+			newUser : function(user){
+				return $http.post('/api/users', user);
+			}
 
-	};
+		};
 
-}
+	}
+
+})();
+

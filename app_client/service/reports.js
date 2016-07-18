@@ -1,18 +1,23 @@
-angular
-	.module('mapaAssedioApp')
-	.service('reportsService', reportsService);
+(function(){
+	
+	angular
+		.module('mapaAssedioApp')
+		.service('reportsService', reportsService);
 
-function reportsService($http){
+	function reportsService($http){
 
-	return {
+		return {
 
-		getReports : function(lat, lng, maxDistance){
-			return $http.get('/api/reports/lat/' + lat + '/lng/' + lng + '/distance/' + maxDistance);
-		},
+			getReports : function(lat, lng, maxDistance){
+				return $http.get('/api/reports/lat/' + lat + '/lng/' + lng + '/distance/' + maxDistance);
+			},
 
-		newReport : function(report){
-			return $http.post('/api/reports', report);
-		}
-	};
+			newReport : function(report){
+				return $http.post('/api/reports', report);
+			}
+		};
 
-}
+	}
+
+})();
+
