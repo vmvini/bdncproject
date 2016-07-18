@@ -9,12 +9,12 @@ function reportModalCtrl($scope, $uibModalInstance, pos){
 	vm.denuncia = {
 		pos: pos,
 		tags: [],
-		vitima: false,
+		victim: false,
 		crime: "",
-		anonimo: false,
-		usuario:{}
+		anonymous: false,
+		user:{}, 
+		date:{}
 	};
-	
 
 	vm.ok = function(){
 		console.log(vm.denuncia);

@@ -42,5 +42,11 @@ var reportSchema = new mongoose.Schema({
 
 });
 
+reportSchema.methods.setGeoCoords = function(){
+	var coords = [];
+	coords.push(this.pos.lng, this.pos.lat);
+	this.geoCoords = coords;
+};
+
 
 mongoose.model('Report', reportSchema );

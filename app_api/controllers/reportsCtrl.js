@@ -74,19 +74,60 @@ module.exports.getReports = function(req, res){
 
 };
 
+function getLoggedUser(req, res, callback){
+
+	if(req.payload && req.payload.email){
+
+		User
+			.findOne({ email: req.payload.email }, 'name age email')
+			.exec(function(err, user){
+				if(!user){
+					res.status(404);
+					res.json({"message":"usuário não existe!"});
+					return;
+				}
+				else if(err){
+					console.log(err);
+					res.status(404);
+					res.json(err);
+					return;
+				}
+				callback(req, res, user);
+			});
+
+	}
+	else{
+		res.status(404);
+		res.json({"message":"Usuário não logado"});
+		return;
+	}
+
+}
+
 module.exports.newReport = function(req, res){
 
+	var report;
+	var reqReport;
+	
 	if(req.body && req.body.report){
-		Report.create(req.body.report, function(err, report){
-			if(err){
-				res.status(404);
-				res.json(err);
-			}
-			else{
-				res.status(201);
-				res.json(report);
-			}
+
+		reqReport = req.body.report;
+
+		getLoggedUser(req, res, function(req, res, user){
+			reqReport.user = user;
+			report = new Report(reqReport);
+			report.save(function(err){
+				if(err){
+					res.status(404);
+					res.json(err);
+				}
+				else{
+					res.status(201);
+					res.json(report);
+				}
+			});
 		});
+		
 	}
 	else{
 		res.status(404);

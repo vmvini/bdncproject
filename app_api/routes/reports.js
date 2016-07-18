@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var auth = require('../authMiddleware/authMiddleware').auth;
 
 var reportsCtrl = require('../controllers/reportsCtrl');
 
@@ -7,13 +8,13 @@ var reportsCtrl = require('../controllers/reportsCtrl');
 router.get('/reports/lat/:lat/lng/:lng/distance/:maxDistance', reportsCtrl.getReports );
 
 //registrar denuncia
-router.post('/reports', reportsCtrl.newReport );
+router.post('/reports', auth, reportsCtrl.newReport );
 
 //atualizar denuncia
-router.put('/reports/:reportid/:newReport', reportsCtrl.updateReport );
+router.put('/reports/:reportid/:newReport', auth,  reportsCtrl.updateReport );
 
 //remover denuncia
-router.delete('/reports/:reportid', reportsCtrl.deleteReport );
+/*router.delete('/reports/:reportid', reportsCtrl.deleteReport );*/
 
 
 module.exports = router;

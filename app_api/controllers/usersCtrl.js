@@ -62,6 +62,7 @@ module.exports.getUserById = function(req, res){
 
 };
 
+/*
 module.exports.createUser = function(req, res){
 
 	var user = req.body.user;
@@ -82,7 +83,7 @@ module.exports.createUser = function(req, res){
 		});
 	}
 
-};
+};*/
 
 module.exports.updateUser = function(req, res){
 
@@ -109,8 +110,6 @@ module.exports.updateUser = function(req, res){
 		user.name = updateUser.name;
 		user.age = updateUser.age;
 		user.email = updateUser.email;
-		user.password = updateUser.password;
-		user.imagePath = updateUser.imagePath;
 
 		user.save(function(err, userResult){
 			if(err){

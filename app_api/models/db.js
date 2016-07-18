@@ -49,5 +49,5 @@ process.on('SIGTERM', function(){
 	});
 });
 
-
+//require('./user.js'); this will be executed inside reports.js
 require('./reports.js');

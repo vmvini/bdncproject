@@ -4,13 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
 //load database
 require('./app_api/models/db');
 
-//load database models api
+//load passport config
+require('./app_api/config/passport');
+
+//load api routes
 var reportsApi = require('./app_api/routes/reports');
 var usersApi = require('./app_api/routes/users');
+var authApi = require('./app_api/routes/authentication');
 
 var app = express();
 
@@ -25,10 +30,17 @@ app.use(express.static(path.join(__dirname, 'app_client')));
 app.use(express.static(path.join(__dirname, 'public/templated')));
 
 
+/*Passport should be initialized in app.js after the static routes have been defined*/
+app.use(passport.initialize());
+/*and before the routes that are going to use authentication*/
 
 //routes for api
 app.use('/api', reportsApi);
 app.use('/api', usersApi);
+
+//login and register public api route
+app.use('/api', authApi);
+
 
 //central route to Single Page App
 app.get('/', function(req, res){
@@ -44,6 +56,16 @@ app.get('*', function(req, res){
 
 });
 
+
+//Catch unauthorized errors
+app.use(function(err, req, res, next){
+
+  if(err.name === 'UnauthorizedError'){
+    res.status(401);
+    res.json({"message": "É preciso estar logado."});
+  }
+
+});
 
 
 // catch 404 and forward to error handler
