@@ -1,9 +1,10 @@
 (function(){
-	
+
 	angular
 		.module('mapaAssedioApp')
 		.service('reportsService', reportsService);
 
+	reportsService.$inject = ['$http'];
 	function reportsService($http){
 
 		return {

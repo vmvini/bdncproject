@@ -4,6 +4,7 @@
 		.module('mapaAssedioApp')
 		.service('usersService', usersService);
 
+	usersService.$inject = ['$http'];
 	function usersService($http){
 
 

@@ -4,6 +4,7 @@
 		.module('mapaAssedioApp')
 		.controller('indexCtrl', indexCtrl);
 
+	indexCtrl.$inject = ['$scope', 'reportsService', 'usersService', '$uibModal', '$log'];
 	function indexCtrl($scope, reportsService, usersService, $uibModal, $log ){
 
 		//using ViewModel : angular instantiate this controller with new. I'm getting the object passed as this.

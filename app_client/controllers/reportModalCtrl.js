@@ -4,6 +4,7 @@
 		.module('mapaAssedioApp')
 		.controller('reportModalCtrl', reportModalCtrl );
 
+	reportModalCtrl.$inject = ['$scope', '$uibModalInstance', 'pos'];
 	function reportModalCtrl($scope, $uibModalInstance, pos){
 
 		var vm = this;

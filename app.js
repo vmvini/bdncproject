@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 
+
 //load database
 require('./app_api/models/db');
 
@@ -28,6 +29,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_client')));
 app.use(express.static(path.join(__dirname, 'public/templated')));
+
+
+//minifies angular client app
+require('./app_server/scripts/uglifyAngular.js');
 
 
 /*Passport should be initialized in app.js after the static routes have been defined*/
