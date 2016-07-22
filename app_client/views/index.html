@@ -5,7 +5,7 @@
 				<nav id="nav">
 					<ul>
 						<li><a href="">Página Inicial</a></li>
-						<li ng-hide="index.isLoggedIn"> <a href="">Entrar</a> </li>
+						<li ng-hide="index.isLoggedIn"> <a href="" ng-click="index.openLoginModal()">Entrar</a> </li>
 						<li ng-hide="index.isLoggedIn"><a href="" ng-click="index.openRegisterModal()">Cadastre-se</a></li>
 						<li><a href="">Buscar</a></li>
 						<li ng-show="index.isLoggedIn"><a href="" ng-click="index.logout()" >Sair</a></li>
