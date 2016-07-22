@@ -4,9 +4,9 @@
 		.module('mapaAssedioApp')
 		.service('authService', authService);
 
-	authService.$inject = ['$window'];
+	authService.$inject = ['$window', '$http'];
 
-	function authService($window){
+	function authService($window, $http){
 
 		var decodePayload = function(token){
 			return JSON.parse($window.atob(token.split('.')[1]));

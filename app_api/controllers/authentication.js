@@ -22,9 +22,11 @@ module.exports.register = function(req, res){
 	user.save(function(err){
 		var token;
 		if(err){
+			console.log("ERRO AO SALVAR USUARIO");
 			sendJSONresponse(res, 404, err);
 		}
 		else{
+			console.log("SUCESSO AO SALVAR USUARIO"); 
 			token = user.generateJwt();
 			sendJSONresponse(res, 200, {"token":token});
 		}

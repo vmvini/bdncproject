@@ -12,7 +12,6 @@ var validateEmail = function(email){
 var userSchema = new mongoose.Schema({
 
 	name: {type: String, required:true},
-	age: {type: Number, required:true},
 	email: {
 		type: String, 
 		required:true,
@@ -20,9 +19,13 @@ var userSchema = new mongoose.Schema({
 		unique:true,
 		validate: [validateEmail, 'Email inválido']
 	},
+	birthDate: {type: Date},
+	sex: {
+		type: String,
+		enum: ['feminino', 'masculino']
+	},
 	hash: String, 
 	salt: String
-
 });
 
 userSchema.methods.setPassword = function(password){
