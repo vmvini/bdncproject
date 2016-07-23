@@ -116,6 +116,7 @@ module.exports.newReport = function(req, res){
 		getLoggedUser(req, res, function(req, res, user){
 			reqReport.user = user;
 			report = new Report(reqReport);
+			report.setGeoCoords();
 			report.save(function(err){
 				if(err){
 					res.status(404);

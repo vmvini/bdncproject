@@ -4,9 +4,9 @@ var MARKER_ICON = (function() {
 	var icon = "http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|";
 
      var private = {
-         'ASSEDIO': icon+"FFD50A",
-         'VIOLENCIA': icon+"950770",
-         'ESTUPRO': icon+"B91B0F"
+         'Assédio': icon+"FFD50A",
+         'Violência': icon+"950770",
+         'Estupro': icon+"B91B0F"
      };
 
      return {

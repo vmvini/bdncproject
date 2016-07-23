@@ -4,10 +4,12 @@
 		.module('mapaAssedioApp')
 		.controller('reportModalCtrl', reportModalCtrl );
 
-	reportModalCtrl.$inject = ['$scope', '$uibModalInstance', 'pos'];
-	function reportModalCtrl($scope, $uibModalInstance, pos){
+	reportModalCtrl.$inject = ['$scope', '$uibModalInstance', 'pos', 'reportsService'];
+	function reportModalCtrl($scope, $uibModalInstance, pos, reportsService){
 
 		var vm = this;
+
+		vm.tags = [];
 
 		vm.denuncia = {
 			pos: pos,
@@ -15,19 +17,46 @@
 			victim: false,
 			crime: "",
 			anonymous: false,
-			user:{}, 
-			date:{}
+			user:null, 
+			date:null
 		};
-
+	
 		vm.ok = function(){
+			vm.denuncia.tags = getTagsArray(vm.tags);
 			console.log(vm.denuncia);
-			 $uibModalInstance.close("modal close method");
+			reportsService
+				.newReport(vm.denuncia)
+				.success(function(data){
+					console.log("sucesso ao cadastrar denuncia");
+					console.log(data);
+					//$uibModalInstance.close("modal close method");
+				})
+				.error(function(data){
+					console.log("erro ao cadastrar denuncia");
+					console.log(data);
+				});
+
+
+			
 		};
 
 		vm.cancel = function(){
 			$uibModalInstance.dismiss('cancel');
-		}
+		};
 	}
+
+
+	function getTagsArray(tags){
+		var i;
+		var myTags = [];
+		for(i=0; i < tags.length; i++){
+			myTags.push(tags[i].text);
+			
+		}
+		return myTags;
+
+	}
+
 
 })();
 

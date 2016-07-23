@@ -30,7 +30,7 @@
 				resolve: localResolve
 	        });
 
-			modalInstance.result.then(function(msg){
+			modalInstance.result.then(function(data){
 				console.log("fechando");
 				
 			}, function(){
@@ -69,13 +69,11 @@
 
 		ctrlListener($scope, "SUCCESS_LOGIN", updateUser);
 
-		ctrlListener($scope, "login", function(msg){
-			console.log(msg);
+		ctrlListener($scope, "login", function(){
 			vm.openLoginModal();
 		});
 
-		ctrlListener($scope, "register", function(msg){
-			console.log(msg);
+		ctrlListener($scope, "register", function(){
 			vm.openRegisterModal();
 		});
 
@@ -123,11 +121,13 @@
 			
 			$scope.$apply(function(){
 				var pos = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+				
 				if(vm.isLoggedIn){
 					vm.openReportModal({ pos: pos });
+					
 				}
 				else{
-					vm.openAuthModal({ pos: pos });
+					vm.openAuthModal();
 				}
 				
 			});
@@ -135,6 +135,20 @@
 		});
 
 	}
+
+	/* cqso queira abrir denuncia automaticamente depois de ter logado ou cadastrado
+	function configureReportModal(vm, pos){
+		
+		return function(){
+			if(vm.lastPos){
+				vm.openReportModal({pos: vm.lastPos});
+				vm.lastPos = null;
+			}
+			else{
+				vm.openReportModal({pos: pos});
+			}
+		};	
+	}*/
 
 
 })();
