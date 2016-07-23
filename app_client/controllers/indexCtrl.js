@@ -8,19 +8,31 @@
 		$rootScope.$on('$routeChangeStart', callback);
 	}
 
-	
-	indexCtrl.$inject = ['$rootScope','$scope', 'reportsService', 'usersService', '$uibModal', '$log', 'authService', '$location'];
-	function indexCtrl($rootScope, $scope, reportsService, usersService, $uibModal, $log, authService, $location ){
+	function ctrlListener($scope, event, callback){
+		$scope.$on(event, function(event, msg) {
+    		callback();
+  		});
+	}
+
+	indexCtrl.$inject = [
+		'$rootScope','$scope', 'reportsService', 
+		'usersService', '$uibModal', '$log', 
+		'authService', '$location', '$anchorScroll'
+	];
+
+	function indexCtrl(
+		$rootScope, $scope, reportsService, 
+		usersService, $uibModal, $log, 
+		authService, $location, $anchorScroll ){
 
 		//using ViewModel : angular instantiate this controller with new. I'm getting the object passed as this.
 		//the this object is bound to $scope
 		//so, i dont need use $scope reference for all situations
 		var vm = this;
-
 		vm.loggedUser;
 		vm.isLoggedIn;
 
-		var updateUser = function(erase){
+		var updateUser = function(){
 			vm.loggedUser = authService.getLoggedUser();
 			vm.isLoggedIn = authService.isLoggedIn();
 		};
@@ -28,14 +40,14 @@
 		updateUser();
 
 
+		ctrlListener($scope, "SUCCESS_LOGIN", updateUser);
+
 		routeListener($rootScope, function(){
 			updateUser();
 		});
 		
 
-		$scope.$on('SUCCESS_LOGIN', function(event, msg) {
-    		updateUser();
-  		});
+		
 
 		vm.logout = function(){
 			authService.logout();
