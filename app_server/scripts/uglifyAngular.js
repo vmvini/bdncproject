@@ -7,6 +7,7 @@ var files = [
 	'app_client/controllers/reportModalCtrl.js',
 	'app_client/controllers/userRegisterCtrl.js',
 	'app_client/controllers/loginCtrl.js',
+	'app_client/controllers/authUserCtrl.js',
 	'app_client/service/authentication.js',
 	'app_client/service/reports.js',
 	'app_client/service/users.js'

@@ -10,7 +10,7 @@
 
 	function ctrlListener($scope, event, callback){
 		$scope.$on(event, function(event, msg) {
-    		callback();
+    		callback(msg);
   		});
 	}
 
@@ -31,7 +31,8 @@
 	        });
 
 			modalInstance.result.then(function(msg){
-				console.log("fechando: " + msg);
+				console.log("fechando");
+				
 			}, function(){
 				console.log('Modal dismissed at: ' + new Date());
 			});		
@@ -68,6 +69,16 @@
 
 		ctrlListener($scope, "SUCCESS_LOGIN", updateUser);
 
+		ctrlListener($scope, "login", function(msg){
+			console.log(msg);
+			vm.openLoginModal();
+		});
+
+		ctrlListener($scope, "register", function(msg){
+			console.log(msg);
+			vm.openRegisterModal();
+		});
+
 		routeListener($rootScope, function(){
 			updateUser();
 		});
@@ -76,6 +87,7 @@
 		vm.openRegisterModal = createModal($uibModal, '/views/userModal/userRegister.html', 'userRegisterCtrl');
 		vm.openLoginModal = createModal($uibModal, '/views/userModal/login.html', 'loginCtrl');
 		vm.openReportModal = createModal($uibModal, '/views/reportModal/reportModal.html', 'reportModalCtrl' );
+		vm.openAuthModal = createModal($uibModal, 'views/userModal/authUser.html', 'authUserCtrl');
 
 		vm.logout = function(){
 			authService.logout();
@@ -108,10 +120,16 @@
 	      	});
 
 		vm.harassmentMap.setClickEvent(function(e, hmap){
-
+			
 			$scope.$apply(function(){
 				var pos = {lat: e.latLng.lat(), lng: e.latLng.lng()};
-				vm.openReportModal({ pos: pos });
+				if(vm.isLoggedIn){
+					vm.openReportModal({ pos: pos });
+				}
+				else{
+					vm.openAuthModal({ pos: pos });
+				}
+				
 			});
 
 		});
