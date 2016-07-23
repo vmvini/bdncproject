@@ -14,6 +14,32 @@
   		});
 	}
 
+
+	function createModal($uibModal, template, controller){
+		return function(resolve){
+			var localResolve = {};
+			if(resolve){
+				localResolve = resolve;
+			}
+			var modalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: template,
+				controller:  controller,
+				controllerAs: 'vm',
+				size: 'lg',
+				resolve: localResolve
+	        });
+
+			modalInstance.result.then(function(msg){
+				console.log("fechando: " + msg);
+			}, function(){
+				console.log('Modal dismissed at: ' + new Date());
+			});		
+
+		};
+	}
+
+
 	indexCtrl.$inject = [
 		'$rootScope','$scope', 'reportsService', 
 		'usersService', '$uibModal', '$log', 
@@ -47,7 +73,9 @@
 		});
 		
 
-		
+		vm.openRegisterModal = createModal($uibModal, '/views/userModal/userRegister.html', 'userRegisterCtrl');
+		vm.openLoginModal = createModal($uibModal, '/views/userModal/login.html', 'loginCtrl');
+		vm.openReportModal = createModal($uibModal, '/views/reportModal/reportModal.html', 'reportModalCtrl' );
 
 		vm.logout = function(){
 			authService.logout();
@@ -55,80 +83,19 @@
 			updateUser();
 		};
 
-		//REGISTER USER MODAL 
-		vm.openRegisterModal = function(){
-			var modalInstance = $uibModal.open({
-				animation: true,
-				templateUrl: '/views/userModal/userRegister.html',
-				controller:  'userRegisterCtrl',
-				controllerAs: 'vm',
-				size: 'lg',
-				resolve: {
-					
-	        	}
-	        });
+		loadMap(vm, $scope);
 
-			modalInstance.result.then(function(msg){
-				console.log("fechando: " + msg);
-			}, function(){
-				$log.info('Modal dismissed at: ' + new Date());
-			});	
-		};
-
-		//LOGIN MODAL
-		vm.openLoginModal = function(){
-			var modalInstance = $uibModal.open({
-				animation: true,
-				templateUrl: '/views/userModal/login.html',
-				controller:  'loginCtrl',
-				controllerAs: 'vm',
-				size: 'lg',
-				resolve: {
-					
-	        	}
-	        });
-
-			modalInstance.result.then(function(msg){
-				console.log("fechando: " + msg);
-			}, function(){
-				$log.info('Modal dismissed at: ' + new Date());
-			});	
-		};
+	}
 
 
-		//setting report modal angular ui
-		vm.openReportModal = function(size, pos){
-			
-			var modalInstance = $uibModal.open({
-				animation: true,
-				templateUrl: '/views/reportModal/reportModal.html',
-				controller:  'reportModalCtrl',
-				controllerAs: 'vm',
-				size: size,
-				resolve: {
-					pos: pos
-	        		//user: usuarioLogado
-	        	}
-	        });
-
-			modalInstance.result.then(function(msg){
-				console.log("fechando: " + msg);
-			}, function(){
-				$log.info('Modal dismissed at: ' + new Date());
-			});		
-
-		}
-
-		loadMap();
 
 
-		function loadMap(){
-			vm.harassmentMap = new HarassmentMap();
+	function loadMap(vm, $scope){
+		vm.harassmentMap = new HarassmentMap();
+		var map = vm.harassmentMap.createMap("map");
+		var infowindow = vm.harassmentMap.createInfoWindow();
 
-			var map = vm.harassmentMap.createMap("map");
-			var infowindow = vm.harassmentMap.createInfoWindow();
-
-			vm.harassmentMap.goToUserLocation(function(pos){
+		vm.harassmentMap.goToUserLocation(function(pos){
 	      		//success callback
 	      		infowindow.setPosition(pos);
 	      		infowindow.setContent('Localização encontrada!');
@@ -140,19 +107,14 @@
 	      		infowindow.setContent('A localização falhou!');
 	      	});
 
-			vm.harassmentMap.setClickEvent(function(e, hmap){
+		vm.harassmentMap.setClickEvent(function(e, hmap){
 
-				$scope.$apply(function(){
-					var pos = {lat: e.latLng.lat(), lng: e.latLng.lng()};
-					vm.openReportModal('lg', pos);
-				});
-
+			$scope.$apply(function(){
+				var pos = {lat: e.latLng.lat(), lng: e.latLng.lng()};
+				vm.openReportModal({ pos: pos });
 			});
 
-		}
-
-
-	
+		});
 
 	}
 
