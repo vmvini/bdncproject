@@ -10,7 +10,8 @@
 		return {
 
 			getReports : function(lat, lng, maxDistance){
-				return $http.get('/api/reports/lat/' + lat + '/lng/' + lng + '/distance/' + maxDistance);
+
+				return $http.post('/api/getreports', {lat: lat, lng: lng, maxDistance: maxDistance});
 			},
 
 			newReport : function(report){

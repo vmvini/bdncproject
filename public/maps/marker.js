@@ -69,7 +69,7 @@ function getMarkInfoWindow(markProps){
 				createRow("Idade", markProps.userage) 	+
 				createRow("Sexo", markProps.usersex) +
 				createRow("Local da ocorrência", markProps.address) +
-				createRow("Data da ocorrẽncia", markProps.date.toLocaleDateString()) +
+				createRow("Data da ocorrência", markProps.date.toLocaleDateString()) +
 				createRow("Tags", getTags(markProps.tags));
 
 	return result;	

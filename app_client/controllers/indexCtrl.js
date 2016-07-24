@@ -94,14 +94,14 @@
 			updateUser();
 		};
 
-		loadMap(vm, $scope, HarassmentMap );
+		loadMap(vm, $scope, HarassmentMap, reportsService );
 
 	}
 
 
 
 
-	function loadMap(vm, $scope, harassmentMap){
+	function loadMap(vm, $scope, harassmentMap, reportsService){
 		var map = harassmentMap.createMap("map");
 		var infowindow = harassmentMap.createInfoWindow();
 
@@ -109,6 +109,17 @@
 	      		//success callback
 	      		infowindow.setPosition(pos);
 	      		infowindow.setContent('Localização encontrada!');
+	      		reportsService.getReports(pos.lat, pos.lng, 2500)
+	      			.success(function(data){
+	      				console.log("sucesso ao pegar marcações");
+	      				console.log(data);
+	      			})
+	      			.error(function(data){
+	      				console.log("erro");
+	      				console.log(data);
+	      			});
+	      		//harassmentMap.loadMarks();
+	      		
 
 
 	      	}, function(){

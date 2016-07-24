@@ -5,7 +5,7 @@ var auth = require('../authMiddleware/authMiddleware').auth;
 var reportsCtrl = require('../controllers/reportsCtrl');
 
 //buscar denuncias por campo de visão do mapa
-router.get('/reports/lat/:lat/lng/:lng/distance/:maxDistance', reportsCtrl.getReports );
+router.post('/getreports', reportsCtrl.getReports );
 
 //registrar denuncia
 router.post('/reports', auth, reportsCtrl.newReport );

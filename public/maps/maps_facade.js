@@ -76,12 +76,14 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 
 		setTimeout((function(){
 
-			var m = addMarker({
+			/*var m = addMarker({
 				map: this.map,
 				pos: { lat: mark.lat, lng: mark.lng },
 				title: mark.title,
 				label: mark.label
-			});
+			});*/
+
+			var m = addMarker( new MarkProps(mark) );
 
 			this.bindMark(m);
 			finishLoop();

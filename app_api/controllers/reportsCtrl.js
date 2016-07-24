@@ -21,36 +21,73 @@ var distances = (function(){
 
 })();
 
+var meterConversion = (function() {
+    var mToKm = function(distance) {
+        return parseFloat(distance / 1000);
+    };
+    var kmToM = function(distance) {
+        return parseFloat(distance * 1000);
+    };
+    return {
+        mToKm : mToKm,
+        kmToM : kmToM
+    };
+})();
+
+
 module.exports.getReports = function(req, res){
 
+try{
 	var point;
 	var geoOptions;
+	console.log("get reports called");
 
-	if( req.params && req.params.lat && req.params.lng && req.params.maxDistance ){
+	if( req.body.lat && req.body.lng && req.body.maxDistance ){
+
+		console.log("parameters ok");
+
 
 		point = {
 			type: "Point",
-			coordinates:[req.params.lng, req.params.lat]
+			coordinates:[req.body.lng, req.body.lat]
 		};
+		console.log("point");
+		console.log(point);
 
 		geoOptions = {
 			spherical:true,
-			maxDistance: distances.getRadFromKm( req.params.maxDistance ),
+			maxDistance: meterConversion.kmToM(req.body.maxDistance),
 			num:1000
 		};
 
+		console.log("geoOptions");
+		console.log(geoOptions);
+
 		Report.geoNear(point, geoOptions, function(err, results, stats){
+			console.log("inside geonear");
+			console.log("stats");
+			console.log(stats);
 
 			var reports = [];
-			var resultsLength = results.length;
+			var resultsLength;
 
 			if(err){
+				console.log("error");
+
 				res.status(404);
 				res.json(err);
 			}
 			else{
+				console.log("success");
 
+				resultsLength = results.length;
+				if(resultsLength == 0){
+					res.status(200);
+					res.json(reports);
+					return;
+				}
 				results.forEach(function(doc){
+					console.log(doc);
 					reports.push(doc.obj);
 					--resultsLength;
 					if(resultsLength == 0){
@@ -67,9 +104,16 @@ module.exports.getReports = function(req, res){
 
 	}
 	else{
+		console.log("missing parameters");
+
 		res.status(404);
 		res.json({"message": "No latitude, longitude or maxDistance in request"});
 	}
+}
+catch(e){
+	console.log("erro ao procurar denuncias");
+	console.log(e);
+}
 
 
 };
