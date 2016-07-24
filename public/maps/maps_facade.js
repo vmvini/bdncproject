@@ -83,7 +83,7 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 				label: mark.label
 			});*/
 
-			var m = addMarker( new MarkProps(mark) );
+			var m = addMarker( new MarkProps(mark, this.map) );
 
 			this.bindMark(m);
 			finishLoop();

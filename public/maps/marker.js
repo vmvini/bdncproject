@@ -31,7 +31,7 @@ var MARKER_ICON = (function() {
 function getMarkInfoWindow(markProps){
 
 	function createRow(key, value){
-		return "<h3>"+ key + "</h3>" + "<p>" + value + "</p>";
+		return "<h6>"+ key + "</h6>" + "<p>" + value + "</p>";
 	}
 
 	function getTags(tags){
@@ -100,12 +100,6 @@ function addMarker(markProps, markClick ){
 
 
 	marker.addListener('click', function(){
-		if (marker.getAnimation() !== null) {
-			marker.setAnimation(null);
-		} else {
-			marker.setAnimation(google.maps.Animation.BOUNCE);
-		}
-
 		infowindow.open(markProps.map, marker);
 		
 		if(markClick)

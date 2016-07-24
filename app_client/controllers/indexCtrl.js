@@ -113,13 +113,14 @@
 	      			.success(function(data){
 	      				console.log("sucesso ao pegar marcações");
 	      				console.log(data);
+	      				harassmentMap.loadMarks(data, function(){
+	      					console.log("marcações carregadas");
+	      				});
 	      			})
 	      			.error(function(data){
 	      				console.log("erro");
 	      				console.log(data);
 	      			});
-	      		//harassmentMap.loadMarks();
-	      		
 
 
 	      	}, function(){

@@ -34,6 +34,23 @@ var meterConversion = (function() {
     };
 })();
 
+function getUser(report, callback){
+	User.findById(report.user)
+		.exec(function(err, user){
+			if(err){
+				console.log("erro ao buscar usuario q fez denuncia");
+				console.log(err);
+			}
+			else if(!user){
+				console.log("usuario nao encontrado");
+			}
+			else{
+				report.user = user;
+				callback(report);
+			}
+		});
+}
+
 
 module.exports.getReports = function(req, res){
 
@@ -88,12 +105,17 @@ try{
 				}
 				results.forEach(function(doc){
 					console.log(doc);
-					reports.push(doc.obj);
-					--resultsLength;
-					if(resultsLength == 0){
-						res.status(200);
-						res.json(reports);
-					}
+
+					getUser(doc.obj, function(reportWithUser){
+						reports.push(reportWithUser);
+						--resultsLength;
+						if(resultsLength == 0){
+							res.status(200);
+							res.json(reports);
+						}
+
+					});
+					
 				});
 
 			}
