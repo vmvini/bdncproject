@@ -45,9 +45,27 @@ function getMarkInfoWindow(markProps){
 		return tagstring;
 	}
 
-	var result = createRow("Tipo",markProps.crime ) + 
-				createRow("Usuário(a)",markProps.username ) +
-				createRow("Email", markProps.useremail) + 
+	function convertBool(b){
+		if(b){
+			return "sim";
+		}
+		return "não";
+	}
+
+	function getUser(anonymous){
+		if(!anonymous){
+			return createRow("Usuário(a)",markProps.username ) +
+				createRow("Email", markProps.useremail);
+		}
+		else{
+			return "";
+		}
+	}
+
+
+	var result = createRow("Tipo",markProps.crime ) +
+				createRow("Vítima", convertBool(markProps.victim)) + 
+				getUser(markProps.anonymous) + 
 				createRow("Idade", markProps.userage) 	+
 				createRow("Sexo", markProps.usersex) +
 				createRow("Local da ocorrência", markProps.address) +
@@ -119,6 +137,8 @@ function MarkProps(denuncia, map){
 	this.usersex = denuncia.user.sex;
 	this.address = denuncia.address;
 	this.denuncia = denuncia;
+	this.anonymous = denuncia.anonymous;
+	this.victim = denuncia.victim;
 
 }
 
