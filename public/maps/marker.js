@@ -27,6 +27,12 @@ var MARKER_ICON = (function() {
 	*/
 
 
+function getMarkInfoWindow(markProps){
+
+	return "<h2>"+markProps.label+"</h2>";
+
+}
+
 
 function addMarker(markProps, markClick ){
 
@@ -43,6 +49,10 @@ function addMarker(markProps, markClick ){
 		}
 	});
 
+	var infowindow = new google.maps.InfoWindow({
+    	content: getMarkInfoWindow(markProps)
+  	});
+
 
 
 	marker.addListener('click', function(){
@@ -51,6 +61,8 @@ function addMarker(markProps, markClick ){
 		} else {
 			marker.setAnimation(google.maps.Animation.BOUNCE);
 		}
+
+		infowindow.open(markProps.map, marker);
 		
 		if(markClick)
 			markClick();
@@ -65,7 +77,7 @@ function addMarker(markProps, markClick ){
 
 
 function MarkProps(denuncia, map){
-
+	console.log("criando markprops", denuncia);
 	this.map = map;
 	this.pos = denuncia.pos;
 	this.label = denuncia.crime;

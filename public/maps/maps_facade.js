@@ -126,7 +126,7 @@ HarassmentMap.prototype.setClickEvent = function(callback){
 
 
 HarassmentMap.prototype.bindMark = function(mark){
-
+	
 	this.mapmarks.push(mark);
 	this.mappoints.push(mark.getPosition());
 

@@ -10,7 +10,8 @@ var files = [
 	'app_client/controllers/authUserCtrl.js',
 	'app_client/service/authentication.js',
 	'app_client/service/reports.js',
-	'app_client/service/users.js'
+	'app_client/service/users.js',
+	'app_client/service/maps.js'
 	
 ];
 

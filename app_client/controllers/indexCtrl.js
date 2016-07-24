@@ -44,13 +44,14 @@
 	indexCtrl.$inject = [
 		'$rootScope','$scope', 'reportsService', 
 		'usersService', '$uibModal', '$log', 
-		'authService', '$location', '$anchorScroll'
+		'authService', '$location', '$anchorScroll', 
+		'HarassmentMap'
 	];
 
 	function indexCtrl(
 		$rootScope, $scope, reportsService, 
 		usersService, $uibModal, $log, 
-		authService, $location, $anchorScroll ){
+		authService, $location, $anchorScroll, HarassmentMap ){
 
 		//using ViewModel : angular instantiate this controller with new. I'm getting the object passed as this.
 		//the this object is bound to $scope
@@ -93,19 +94,18 @@
 			updateUser();
 		};
 
-		loadMap(vm, $scope);
+		loadMap(vm, $scope, HarassmentMap );
 
 	}
 
 
 
 
-	function loadMap(vm, $scope){
-		vm.harassmentMap = new HarassmentMap();
-		var map = vm.harassmentMap.createMap("map");
-		var infowindow = vm.harassmentMap.createInfoWindow();
+	function loadMap(vm, $scope, harassmentMap){
+		var map = harassmentMap.createMap("map");
+		var infowindow = harassmentMap.createInfoWindow();
 
-		vm.harassmentMap.goToUserLocation(function(pos){
+		harassmentMap.goToUserLocation(function(pos){
 	      		//success callback
 	      		infowindow.setPosition(pos);
 	      		infowindow.setContent('Localização encontrada!');
@@ -117,7 +117,7 @@
 	      		infowindow.setContent('A localização falhou!');
 	      	});
 
-		vm.harassmentMap.setClickEvent(function(e, hmap){
+		harassmentMap.setClickEvent(function(e, hmap){
 			
 			$scope.$apply(function(){
 				var pos = {lat: e.latLng.lat(), lng: e.latLng.lng()};

@@ -4,8 +4,8 @@
 		.module('mapaAssedioApp')
 		.controller('reportModalCtrl', reportModalCtrl );
 
-	reportModalCtrl.$inject = ['$scope', '$uibModalInstance', 'pos', 'reportsService'];
-	function reportModalCtrl($scope, $uibModalInstance, pos, reportsService){
+	reportModalCtrl.$inject = ['$scope', '$uibModalInstance', 'pos', 'reportsService', 'HarassmentMap'];
+	function reportModalCtrl($scope, $uibModalInstance, pos, reportsService, HarassmentMap){
 
 		var vm = this;
 
@@ -24,13 +24,16 @@
 		vm.ok = function(){
 			vm.denuncia.tags = getTagsArray(vm.tags);
 			convertStringToBool(vm.denuncia);
-			console.log(vm.denuncia);
 			reportsService
 				.newReport( { report: vm.denuncia } )
 				.success(function(data){
 					console.log("sucesso ao cadastrar denuncia");
-					console.log(data);
 					$uibModalInstance.close("modal close method");
+					
+					var markprops = new MarkProps(data, HarassmentMap.map);
+			        HarassmentMap.bindMark(
+			        	addMarker(markprops)
+			        );
 				})
 				.error(function(data){
 					console.log("erro ao cadastrar denuncia");
