@@ -4,8 +4,8 @@
 		.module('mapaAssedioApp')
 		.service('reportsService', reportsService);
 
-	reportsService.$inject = ['$http'];
-	function reportsService($http){
+	reportsService.$inject = ['$http', 'authService'];
+	function reportsService($http, authService){
 
 		return {
 
@@ -14,7 +14,11 @@
 			},
 
 			newReport : function(report){
-				return $http.post('/api/reports', report);
+				return $http.post('/api/reports', report, {
+					headers: {
+						Authorization: 'Bearer ' + authService.getToken()
+					}
+				});
 			}
 		};
 

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Report = mongoose.model('Report');
-
+var User = mongoose.model('User');
 
 var distances = (function(){
 
@@ -77,26 +77,40 @@ module.exports.getReports = function(req, res){
 function getLoggedUser(req, res, callback){
 
 	if(req.payload && req.payload.email){
+		console.log("jwt payload found in request");
 
+		console.log("payload.email : " + req.payload.email);
+
+		try{
 		User
-			.findOne({ email: req.payload.email }, 'name age email')
+			.findOne({ email: req.payload.email })
 			.exec(function(err, user){
+				
 				if(!user){
+					console.log("user not found in db");
 					res.status(404);
 					res.json({"message":"usuário não existe!"});
 					return;
 				}
 				else if(err){
+					console.log("error in finding user in db");
 					console.log(err);
 					res.status(404);
 					res.json(err);
 					return;
 				}
+
+				console.log("user found in db");
 				callback(req, res, user);
 			});
+		}
+		catch(e){
+			console.log(e);
+		}
 
 	}
 	else{
+		console.log("jwt payload not found in request");
 		res.status(404);
 		res.json({"message":"Usuário não logado"});
 		return;
@@ -107,33 +121,44 @@ function getLoggedUser(req, res, callback){
 module.exports.newReport = function(req, res){
 
 	var report;
-	var reqReport;
-	
+	var reportModel;
+try{
 	if(req.body && req.body.report){
-
-		reqReport = req.body.report;
-
+		
+		report = req.body.report;
+		
 		getLoggedUser(req, res, function(req, res, user){
-			reqReport.user = user;
-			report = new Report(reqReport);
-			report.setGeoCoords();
-			report.save(function(err){
+			console.log("user found");
+			
+			report.user = user._id;
+
+			reportModel = new Report(report);
+			reportModel.setGeoCoords();
+
+			reportModel.save(function(err, reportResult){
 				if(err){
 					res.status(404);
 					res.json(err);
+					console.log("error on save report");
 				}
 				else{
+					console.log("report saved");
 					res.status(201);
-					res.json(report);
+					res.json(reportResult);
 				}
 			});
 		});
 		
 	}
 	else{
+		console.log("report not found found in request");
 		res.status(404);
 		res.json({"message": "No report provided"});
 	}
+}
+catch(e){
+	console.log(e);
+}
 
 };
 

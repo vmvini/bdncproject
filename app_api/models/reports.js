@@ -1,7 +1,5 @@
 var mongoose = require('mongoose');
 
-var userSchema = require('./user').userSchema;
-
 var coordinateSchema = new mongoose.Schema({
 
 	lat: {type: Number, required:true },
@@ -9,27 +7,22 @@ var coordinateSchema = new mongoose.Schema({
 
 });
 
-
 var reportSchema = new mongoose.Schema({
-
 	pos: {
 		type: coordinateSchema,
-		required:true 
-	},
-
-	user:{
-		type: userSchema,
-		required:true
+		required:false 
 	},
 
 	tags: [String],
 
-	victim:{ type: Boolean, default: true },
+	user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+
+	victim:{ type: Boolean, default: false },
 
 	crime: {
 		type: String,
 		enum: ['Assédio', 'Estupro', 'Violência'],
-		required:true
+		required:false
 	},
 
 	anonymous: Boolean,
@@ -38,7 +31,7 @@ var reportSchema = new mongoose.Schema({
 
 
 	//must be an array in this order [lng, lat] 
-	geoCoords: { type: [Number], index: '2dsphere', required:true }
+	geoCoords: { type: [Number], index: '2dsphere' }
 
 });
 

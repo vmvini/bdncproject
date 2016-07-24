@@ -15,21 +15,22 @@
 			pos: pos,
 			tags: [],
 			victim: false,
+			user: null,
 			crime: "",
 			anonymous: false,
-			user:null, 
 			date:null
 		};
 	
 		vm.ok = function(){
 			vm.denuncia.tags = getTagsArray(vm.tags);
+			convertStringToBool(vm.denuncia);
 			console.log(vm.denuncia);
 			reportsService
-				.newReport(vm.denuncia)
+				.newReport( { report: vm.denuncia } )
 				.success(function(data){
 					console.log("sucesso ao cadastrar denuncia");
 					console.log(data);
-					//$uibModalInstance.close("modal close method");
+					$uibModalInstance.close("modal close method");
 				})
 				.error(function(data){
 					console.log("erro ao cadastrar denuncia");
@@ -55,6 +56,13 @@
 		}
 		return myTags;
 
+	}
+
+	function convertStringToBool(denuncia){
+		if (denuncia.victim === 'true')
+			denuncia.victim = true;
+		else
+			denuncia.victim = false;
 	}
 
 

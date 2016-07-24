@@ -26,6 +26,7 @@ var userSchema = new mongoose.Schema({
 	},
 	hash: String, 
 	salt: String
+
 });
 
 userSchema.methods.setPassword = function(password){
@@ -55,7 +56,7 @@ userSchema.methods.generateJwt = function(){
 };
 
 
-mongoose.model('User', userSchema);
 
-module.exports.userSchema = userSchema;
+
+mongoose.model('User', userSchema);
 
