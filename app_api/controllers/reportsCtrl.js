@@ -73,7 +73,7 @@ try{
 
 		geoOptions = {
 			spherical:true,
-			maxDistance: meterConversion.kmToM(req.body.maxDistance),
+			maxDistance: distances.getKmFromRad(req.body.maxDistance),
 			num:1000
 		};
 

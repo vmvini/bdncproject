@@ -109,7 +109,7 @@
 	      		//success callback
 	      		infowindow.setPosition(pos);
 	      		infowindow.setContent('Localização encontrada!');
-	      		reportsService.getReports(pos.lat, pos.lng, 2500)
+	      		reportsService.getReports(pos.lat, pos.lng, harassmentMap.getVisibleDistance() )
 	      			.success(function(data){
 	      				console.log("sucesso ao pegar marcações");
 	      				console.log(data);
