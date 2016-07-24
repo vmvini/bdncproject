@@ -34,13 +34,25 @@ function getMarkInfoWindow(markProps){
 		return "<h3>"+ key + "</h3>" + "<p>" + value + "</p>";
 	}
 
+	function getTags(tags){
+		var len = tags.length;
+		var i;
+		var tagstring = "";
+		for(i =0;  i < len; i++){
+			tagstring += tags[i] + ",";
+		}
+
+		return tagstring;
+	}
 
 	var result = createRow("Tipo",markProps.crime ) + 
 				createRow("Usuário(a)",markProps.username ) +
 				createRow("Email", markProps.useremail) + 
 				createRow("Idade", markProps.userage) 	+
 				createRow("Sexo", markProps.usersex) +
-				createRow("Local da ocorrência", markProps.address); 
+				createRow("Local da ocorrência", markProps.address) +
+				createRow("Data da ocorrẽncia", markProps.date.toLocaleDateString()) +
+				createRow("Tags", getTags(markProps.tags));
 
 	return result;	
 
@@ -99,11 +111,10 @@ function MarkProps(denuncia, map){
 	this.pos = denuncia.pos;
 	this.label = denuncia.crime;
 	this.crime = denuncia.crime;
-	this.date = denuncia.date;
+	this.date = new Date(denuncia.date);
 	this.tags = denuncia.tags;
 	this.username = denuncia.user.name;
 	this.useremail = denuncia.user.email;
-	console.log(denuncia.user.birthDate);
 	this.userage = getAge(new Date( denuncia.user.birthDate ) );
 	this.usersex = denuncia.user.sex;
 	this.address = denuncia.address;
