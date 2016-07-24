@@ -11,7 +11,8 @@ var files = [
 	'app_client/service/authentication.js',
 	'app_client/service/reports.js',
 	'app_client/service/users.js',
-	'app_client/service/maps.js'
+	'app_client/service/maps.js',
+	'app_client/service/geocoding.js'
 	
 ];
 

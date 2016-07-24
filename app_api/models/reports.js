@@ -13,6 +13,8 @@ var reportSchema = new mongoose.Schema({
 		required:false 
 	},
 
+	address: String,
+
 	tags: [String],
 
 	user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},

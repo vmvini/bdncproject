@@ -4,8 +4,8 @@
 		.module('mapaAssedioApp')
 		.controller('reportModalCtrl', reportModalCtrl );
 
-	reportModalCtrl.$inject = ['$scope', '$uibModalInstance', 'pos', 'reportsService', 'HarassmentMap'];
-	function reportModalCtrl($scope, $uibModalInstance, pos, reportsService, HarassmentMap){
+	reportModalCtrl.$inject = ['$scope', '$uibModalInstance', 'pos', 'reportsService', 'HarassmentMap', 'geoService'];
+	function reportModalCtrl($scope, $uibModalInstance, pos, reportsService, HarassmentMap, geoService){
 
 		var vm = this;
 
@@ -18,8 +18,15 @@
 			user: null,
 			crime: "",
 			anonymous: false,
-			date:null
-		};
+			date:null,
+			address:""
+		};	
+
+		setAddress(geoService, vm.denuncia, function(address){
+			vm.denuncia.address = address;
+
+
+		} );
 	
 		vm.ok = function(){
 			vm.denuncia.tags = getTagsArray(vm.tags);
@@ -66,6 +73,18 @@
 			denuncia.victim = true;
 		else
 			denuncia.victim = false;
+	}
+
+
+	function setAddress(geoService, denuncia, callback){
+		geoService.getAddress(denuncia.pos.lat, denuncia.pos.lng)
+			.success(function(data){
+				callback(data.results[0].formatted_address);
+			})
+			.error(function(data){
+				console.log("erro ao pegar endereço");
+				console.log(data);
+			});
 	}
 
 

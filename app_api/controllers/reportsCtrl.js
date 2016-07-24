@@ -144,6 +144,7 @@ try{
 				else{
 					console.log("report saved");
 					res.status(201);
+					reportResult.user = user; //retornando usuario 
 					res.json(reportResult);
 				}
 			});

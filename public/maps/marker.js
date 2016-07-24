@@ -27,9 +27,23 @@ var MARKER_ICON = (function() {
 	*/
 
 
+
 function getMarkInfoWindow(markProps){
 
-	return "<h2>"+markProps.label+"</h2>";
+	function createRow(key, value){
+		return "<h3>"+ key + "</h3>" + "<p>" + value + "</p>";
+	}
+
+
+	var result = createRow("Tipo",markProps.crime ) + 
+				createRow("Usuário(a)",markProps.username ) +
+				createRow("Email", markProps.useremail) + 
+				createRow("Idade", markProps.userage) 	+
+				createRow("Sexo", markProps.usersex) +
+				createRow("Local da ocorrência", markProps.address); 
+
+	return result;	
+
 
 }
 
@@ -73,18 +87,31 @@ function addMarker(markProps, markClick ){
 }
 
 
-
-
+function getAge(birthday) { // birthday is a date
+    var ageDifMs = Date.now() - birthday.getTime();
+    var ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+}
 
 function MarkProps(denuncia, map){
 	console.log("criando markprops", denuncia);
 	this.map = map;
 	this.pos = denuncia.pos;
 	this.label = denuncia.crime;
-
+	this.crime = denuncia.crime;
+	this.date = denuncia.date;
+	this.tags = denuncia.tags;
+	this.username = denuncia.user.name;
+	this.useremail = denuncia.user.email;
+	console.log(denuncia.user.birthDate);
+	this.userage = getAge(new Date( denuncia.user.birthDate ) );
+	this.usersex = denuncia.user.sex;
+	this.address = denuncia.address;
 	this.denuncia = denuncia;
 
 }
+
+
 
 
 function getMarks(){
