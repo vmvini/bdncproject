@@ -3,6 +3,7 @@ function HarassmentMap(){
 	//properties
 	this.mapmarks = [];
 	this.mappoints = [];
+	this.marksIds = [];
 	this.infoWindow;
 	this.heatmap;
 
@@ -17,6 +18,8 @@ function HarassmentMap(){
 	this.getPosition;
 	this.goToUserLocation;
 	this.getVisibleDistance;
+	this.getCurrentPosition;
+	this.clearMarks;
 
 }
 
@@ -34,7 +37,25 @@ HarassmentMap.prototype.createMap = function(divId){
 
 	return this.map;
 
+};
+
+HarassmentMap.prototype.clearMarks = function(){
+
+	this.mapmarks = [];
+	this.mappoints = [];	
 }
+
+
+HarassmentMap.prototype.getCurrentPosition = function(){
+	var bounds = this.map.getBounds();
+
+	var center = bounds.getCenter();
+
+	return {
+		lat: center.lat(),
+		lng: center.lng()
+	};
+};
 
 HarassmentMap.prototype.getVisibleDistance = function(){
 
@@ -97,6 +118,22 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 	var i = 0;
 	var count = marks.length;
 	var createHeatMap;
+	var alreadyExists;
+
+	alreadyExists = (function(id){
+		var len = this.marksIds.length;
+		console.log("len de marksIds : " + len);
+		var c;
+		for(c = 0; c < len; c++){
+			if(this.marksIds[c] === id){
+				
+				return true;
+			}
+		}
+
+		return false;
+
+	}).bind(this);
 
 	marks.forEach( (function(mark){
 
@@ -109,10 +146,15 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 				label: mark.label
 			});*/
 
+			finishLoop();
+			if(alreadyExists(mark._id)){
+				return;
+			}
 			var m = addMarker( new MarkProps(mark, this.map) );
 
+			this.marksIds.push(mark._id);
 			this.bindMark(m);
-			finishLoop();
+			
 
 		}).bind(this), ++i * 200);
 
@@ -137,6 +179,8 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 		
 		}
 	}
+
+
 
 }
 

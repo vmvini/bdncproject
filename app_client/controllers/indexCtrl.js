@@ -103,6 +103,26 @@
 
 	function loadMap(vm, $scope, harassmentMap, reportsService){
 		var map = harassmentMap.createMap("map");
+
+		map.addListener('idle', function(e) {
+
+			var pos = harassmentMap.getCurrentPosition();
+
+		    reportsService.getReports(pos.lat, pos.lng, harassmentMap.getVisibleDistance() )
+	      			.success(function(data){
+	      				console.log("sucesso ao pegar marcações");
+	      				
+	      				
+	      				harassmentMap.loadMarks(data, function(){
+	      					console.log("marcações carregadas");
+	      				});
+	      			})
+	      			.error(function(data){
+	      				console.log("erro");
+	      				
+	      			});
+		});
+
 		var infowindow = harassmentMap.createInfoWindow();
 
 		harassmentMap.goToUserLocation(function(pos){
@@ -112,14 +132,14 @@
 	      		reportsService.getReports(pos.lat, pos.lng, harassmentMap.getVisibleDistance() )
 	      			.success(function(data){
 	      				console.log("sucesso ao pegar marcações");
-	      				console.log(data);
+	      				
 	      				harassmentMap.loadMarks(data, function(){
 	      					console.log("marcações carregadas");
 	      				});
 	      			})
 	      			.error(function(data){
 	      				console.log("erro");
-	      				console.log(data);
+	      				
 	      			});
 
 
