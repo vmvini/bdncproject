@@ -347,6 +347,147 @@ function Removeds(mapmarks){
 
 }
 
+function Matchs(mapmarks){
+
+	this.matchs = [];
+	this.len = 0;
+
+	this.add = function(i){
+		this.matchs.push(i);
+		this.len = this.matchs.length;
+	};
+
+	
+}
+
+
+
+
+HarassmentMap.prototype.findMarksByFilter = function(data, crime, tags){
+
+	//retorna os objetos que satisfazem a condição de data
+	var createDateTest = (function(){
+
+		var len = this.mapmarks.length;
+		var i;
+		var d1, d2;
+		var matchs = new Matchs(this.mapmarks);
+
+		for(i=0;i<len;i++){
+			d1 = new Date(this.mapmarks[i].markProps.date );
+			d2 = new Date(data);
+			if( d1.getTime() === d2.getTime() ){
+				matchs.add(i);
+			}
+		}
+
+		return matchs;
+
+	}).bind(this);
+
+
+	//retorna os objetos que satisfazem a condião de tipo de crime
+	var createCrimeTest = (function(){
+
+		var len = this.mapmarks.length;
+		var i;
+		var matchs = new Matchs(this.mapmarks);
+
+		for(i=0;i<len;i++){
+			if(this.mapmarks[i].markProps.crime == crime ){
+				matchs.add(i);
+			}
+			
+		}
+		return matchs;
+
+	}).bind(this);
+
+
+	//retorna os objetos que satisfazem a condição de tags
+	var createTagsTest = (function(){
+		var len = this.mapmarks.length;
+		var i;
+		var matchs = new Matchs(this.mapmarks);
+
+		for(i=0;i<len;i++){
+			if(hasAny( this.mapmarks[i].markProps.tags, tags ) ){
+				matchs.add(i);
+			}
+		}
+
+		return matchs;
+
+		//arr1 contains any elements of arr2?
+		function hasAny(array1, array2){
+			return array1.some(function(v) { return array2.indexOf(v) != -1; });
+		}
+	}).bind(this);
+
+	function mockAllMapMarksIndexes(mapmarks){
+		var mock = new Matchs();	
+		var len = mapmarks.length;
+		var i;
+		for (i = 0; i < len; i++){
+			mock.add(i);
+		}
+		return mock;
+		
+	}
+
+	var mock = mockAllMapMarksIndexes(this.mapmarks);
+
+
+
+	var testDate = mock; 
+	var testCrime = mock;
+	var testTags = mock;
+
+	if(data){
+		console.log("recebeu data");
+		testDate = createDateTest();
+	}
+	if(crime){
+		console.log("recebeu crime");
+		testCrime = createCrimeTest();
+	}
+	if(tags){
+		console.log("recebeu tags");
+		testTags = createTagsTest();
+	}
+
+	console.log("testDate",testDate);
+	console.log("testCrime", testCrime);
+	console.log("testTags", testTags);
+
+	//fazer intersecção dos matchs
+	//seta-los como visiveis
+	//setar o resto como invisivel
+	var matchAllConditions = _.intersection(testDate.matchs, testCrime.matchs, testTags.matchs);
+
+	var drawResults = (function(){
+
+		var mapMarksLen = this.mapmarks.length;	
+		var i;
+		for(i = 0; i < mapMarksLen; i++){
+			if( _.contains(matchAllConditions, i) ){
+				this.mapmarks[i].setVisible(true);
+			}
+			else{
+				this.mapmarks[i].setVisible(false);
+			}
+		}
+
+	}).bind(this);
+
+	drawResults();
+	
+
+
+};
+
+
+
 
 HarassmentMap.prototype.findMarksByDate = function(date){
 

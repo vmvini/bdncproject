@@ -47,28 +47,26 @@
 
 		//DATE CHANGE LISTENER
 		$scope.$watch('vm.occurrencyDate', function(){
+			fixTags(vm);
+			fixCrime(vm);
+			HarassmentMap.findMarksByFilter(vm.occurrencyDate, vm.crime, getTagsArray(vm.tags));
 			
-			if(vm.occurrencyDate !== undefined){
-				HarassmentMap.findMarksByDate(vm.occurrencyDate);
-			}
 		});
 
 		//CRIME CHANGE LISTENER
 		$scope.$watch('vm.crime', function(){
-			
-			if(vm.crime !== undefined){
-				HarassmentMap.findMarksByCrime(vm.crime);
-			}
-
+			fixTags(vm);
+			fixCrime(vm);
+			HarassmentMap.findMarksByFilter(vm.occurrencyDate, vm.crime, getTagsArray(vm.tags));
 		});
 
 
 		//TAGS CHANGE LISTENER
-		$scope.$watch('vm.tags', function(){
+		$scope.$watchCollection('vm.tags', function(){
+				fixCrime(vm);
+				fixTags(vm);
+				HarassmentMap.findMarksByFilter(vm.occurrencyDate, vm.crime, getTagsArray(vm.tags));
 			
-			if(vm.tags !== undefined){
-				HarassmentMap.findMarksByTags(getTagsArray(vm.tags));
-			}
 
 		});
 
@@ -76,14 +74,34 @@
 
 
 	function getTagsArray(tags){
+		
 		var i;
 		var myTags = [];
+		if(tags === undefined){
+			return tags;
+		}
 		for(i=0; i < tags.length; i++){
 			myTags.push(tags[i].text);
 			
 		}
 		return myTags;
 
+	}
+
+	function fixCrime(vm){
+		if(vm.crime){
+			if(vm.crime == "todos"){
+				vm.crime = undefined;
+			}
+		}
+	}
+
+	function fixTags(vm){
+		if(vm.tags){
+			if(vm.tags.length === 0){
+				vm.tags = undefined;
+			}
+		}
 	}
 
 

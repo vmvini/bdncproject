@@ -16,6 +16,7 @@
     "ng-tags-input": "^3.1.1",
     "angular-animate": "^1.5.7",
     "angular-touch": "^1.5.7",
-    "angular-scroll": "^1.0.0"
+    "angular-scroll": "^1.0.0",
+    "underscore": "^1.8.3"
   }
 }
