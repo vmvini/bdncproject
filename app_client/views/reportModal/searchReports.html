@@ -1,22 +1,54 @@
 
 <!-- ANGULAR USER LOGIN MODAL  -->
 <div class="modal-header">
-    <h3 class="modal-title">Pesquisar</h3>
+    <h3 class="searchModal-label">Pesquisar</h3>
 </div>
-<div class="modal-body">
+<div class="modal-body searchModal">
 
      <form class="form-horizontal" role="form">
         <div class="form-group">
-            <label for="address" class="col-sm-3 control-label">Endereço</label>
+            <label for="address" class="col-sm-3 control-label searchModal-label">Endereço</label>
             <div class="col-sm-9">
+
                 <input 
                     ng-model="vm.address" 
-                    ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 2000, 'blur': 1 } }" 
+                    ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1000, 'blur': 1 } }" 
                     type="text" 
                     id="address" 
                     class="form-control">
             </div>
+
+            
         </div>
+
+        <div class="form-group">
+                    <label for="data" class="col-sm-3 control-label searchModal-label">Data</label>
+                    <div class="col-sm-9">
+                        <input type="date" ng-model="vm.occurrencyDate" id="data" class="form-control">
+                    </div>
+                </div>
+
+        <div class="form-group">
+                    <label class="col-sm-3 control-label searchModal-label" for="selectorType">Crime</label>
+                    <div class="col-sm-9">
+                        <select ng-model="vm.crime" id="selectorType" class="form-control">
+                          <option value="Assédio" >Assédio</option>
+                          <option value="Violência" >Violência</option>
+                          <option value="Estupro" >Estupro</option>
+                        </select>
+
+                    </div>
+                  </div>
+
+         <div class="form-group">
+                    <label class="col-sm-3 control-label searchModal-label" for="tags">Tags</label>
+                    <div class="col-sm-9">
+                       <tags-input ng-model="vm.tags"></tags-input>
+
+                    </div>
+                  </div>
+
+
     </form>
     
 </div>
@@ -26,3 +58,14 @@
     
 
 </div>
+
+<script>
+
+$(".searchModal").on("mouseover", function(){
+    console.log("mouse em cima do modal");
+    $(".searchModal-label").css('color', 'white');
+    $(".modal-content").css('background-color', 'transparent');
+});
+
+</script>
+

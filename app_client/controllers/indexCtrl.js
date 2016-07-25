@@ -15,18 +15,21 @@
 	}
 
 
-	function createModal($uibModal, template, controller){
+	function createModal($uibModal, template, controller, size){
+
 		return function(resolve){
+			
 			var localResolve = {};
 			if(resolve){
 				localResolve = resolve;
 			}
+			
 			var modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: template,
 				controller:  controller,
 				controllerAs: 'vm',
-				size: 'lg',
+				size: size,
 				resolve: localResolve
 	        });
 
@@ -83,11 +86,11 @@
 		});
 		
 
-		vm.openRegisterModal = createModal($uibModal, '/views/userModal/userRegister.html', 'userRegisterCtrl');
-		vm.openLoginModal = createModal($uibModal, '/views/userModal/login.html', 'loginCtrl');
-		vm.openReportModal = createModal($uibModal, '/views/reportModal/reportModal.html', 'reportModalCtrl' );
-		vm.openAuthModal = createModal($uibModal, 'views/userModal/authUser.html', 'authUserCtrl');
-		vm.openSearchReport = createModal($uibModal, 'views/reportModal/searchReports.html', 'searchReportsCtrl' );
+		vm.openRegisterModal = createModal($uibModal, '/views/userModal/userRegister.html', 'userRegisterCtrl', 'lg');
+		vm.openLoginModal = createModal($uibModal, '/views/userModal/login.html', 'loginCtrl', 'lg');
+		vm.openReportModal = createModal($uibModal, '/views/reportModal/reportModal.html', 'reportModalCtrl' , 'lg');
+		vm.openAuthModal = createModal($uibModal, 'views/userModal/authUser.html', 'authUserCtrl', 'lg');
+		vm.openSearchReport = createModal($uibModal, 'views/reportModal/searchReports.html', 'searchReportsCtrl', 'sm');
 
 		vm.logout = function(){
 			authService.logout();

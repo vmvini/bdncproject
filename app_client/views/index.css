@@ -48,3 +48,19 @@ a:active {
 	text-align: center;
 	cursor: pointer;
 }
+
+
+
+/*search Reports Modal*/
+.searchModal-label{
+	color:#000;
+}
+
+input[type="text"]{
+	background:#ffffff;
+}
+
+label{
+	color:#000;
+}
+
