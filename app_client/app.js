@@ -1,6 +1,6 @@
 (function(){
 
-	angular.module('mapaAssedioApp', ['ngRoute', 'ngTagsInput', 'ngAnimate', 'ngTouch', 'ui.bootstrap', 'duScroll']);
+	angular.module('mapaAssedioApp', ['ngRoute', 'ngTagsInput', 'ngAnimate', 'ngTouch', 'ui.bootstrap', 'duScroll', 'ngMessages']);
 
 
 

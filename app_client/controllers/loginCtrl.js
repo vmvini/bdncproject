@@ -15,17 +15,26 @@
 			email: "",
 			password: ""
 		};
+
+		vm.loginResp = "";
+
+		vm.success = false;
 		
 		vm.ok = function(){
 			authService.login(vm.user)
 				.success(function(resp){
 					console.log("sucesso ao logar");
 					$rootScope.$broadcast('SUCCESS_LOGIN', resp);
-					$uibModalInstance.close("modal close method");
+					var user = authService.getLoggedUser();
+					console.log(user.name);
+					vm.loginResp = "Olá, " + user.name+ "!";
+					vm.success = true;
+					//$uibModalInstance.close("modal close method");
 				})
 				.error(function(err){
 					console.log("erro ao logar");
 					console.log(err);
+					vm.loginResp = "O usuário informado não existe.";
 				});
 
 
