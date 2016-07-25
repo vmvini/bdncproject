@@ -16,9 +16,13 @@
 			name: "",
 			birthDate: new Date().now,
 			email:"",
-			sex:""
+			sex:"feminino"
 
 		};
+
+		vm.loginResp = "";
+
+		vm.success = false;
 
 		vm.ok = function(){
 			console.log("cadastrando");
@@ -27,10 +31,15 @@
 
 			authService.register({ user:vm.user, password: vm.password })
 				.success(function(){
-					console.log("cadastrou com sucesso");
+					console.log("cadastrou com sucesso")
+					vm.loginResp = "Cadastro realizado com sucesso";
+					vm.success = true;
+				})
+				.error(function(){
+					vm.loginResp = vm.user.email + " já usado por outro usuário";
 				});
 
-			$uibModalInstance.close("modal close method");
+			//$uibModalInstance.close("modal close method");
 		};
 
 		vm.cancel = function(){
