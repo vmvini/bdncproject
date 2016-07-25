@@ -87,6 +87,7 @@
 		vm.openLoginModal = createModal($uibModal, '/views/userModal/login.html', 'loginCtrl');
 		vm.openReportModal = createModal($uibModal, '/views/reportModal/reportModal.html', 'reportModalCtrl' );
 		vm.openAuthModal = createModal($uibModal, 'views/userModal/authUser.html', 'authUserCtrl');
+		vm.openSearchReport = createModal($uibModal, 'views/reportModal/searchReports.html', 'searchReportsCtrl' );
 
 		vm.logout = function(){
 			authService.logout();
