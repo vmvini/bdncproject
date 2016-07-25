@@ -3,7 +3,6 @@ function HarassmentMap(){
 	//properties
 	this.mapmarks = [];
 	this.mappoints = [];
-	this.marksIds = [];
 	this.infoWindow;
 	this.heatmap;
 
@@ -20,6 +19,9 @@ function HarassmentMap(){
 	this.getVisibleDistance;
 	this.getCurrentPosition;
 	this.clearMarks;
+	this.findMarksByDate;
+	this.findMarksByCrime;
+	this.findMarksByTags;
 
 }
 
@@ -43,7 +45,7 @@ HarassmentMap.prototype.clearMarks = function(){
 
 	this.mapmarks = [];
 	this.mappoints = [];	
-}
+};
 
 
 HarassmentMap.prototype.getCurrentPosition = function(){
@@ -79,7 +81,7 @@ HarassmentMap.prototype.getVisibleDistance = function(){
 
 	return dis;
 
-}
+};
 
 
 HarassmentMap.prototype.toggleHeatmap = function(){
@@ -101,7 +103,7 @@ HarassmentMap.prototype.toggleHeatmap = function(){
 		});
 	}
 
-}
+};
 
 /*
 	marks
@@ -121,11 +123,10 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 	var alreadyExists;
 
 	alreadyExists = (function(id){
-		var len = this.marksIds.length;
-		console.log("len de marksIds : " + len);
+		var len = this.mapmarks.length;
 		var c;
 		for(c = 0; c < len; c++){
-			if(this.marksIds[c] === id){
+			if(this.mapmarks[c].markProps._id === id){
 				
 				return true;
 			}
@@ -152,7 +153,6 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 			}
 			var m = addMarker( new MarkProps(mark, this.map) );
 
-			this.marksIds.push(mark._id);
 			this.bindMark(m);
 			
 
@@ -182,7 +182,7 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 
 
 
-}
+};
 
 /*
 	callback(event, HarassmentMap)
@@ -194,7 +194,7 @@ HarassmentMap.prototype.setClickEvent = function(callback){
 	}).bind(this);
 
 	this.map.addListener('click', bondCallback );
-}
+};
 
 
 HarassmentMap.prototype.bindMark = function(mark){
@@ -202,7 +202,7 @@ HarassmentMap.prototype.bindMark = function(mark){
 	this.mapmarks.push(mark);
 	this.mappoints.push(mark.getPosition());
 
-}
+};
 
 
 HarassmentMap.prototype.createInfoWindow = function(){
@@ -210,7 +210,8 @@ HarassmentMap.prototype.createInfoWindow = function(){
 	this.infoWindow = new google.maps.InfoWindow({map: this.map});
 	return this.infoWindow;
 
-}
+};
+
 
 
 /*
@@ -243,7 +244,7 @@ HarassmentMap.prototype.searchAutoComplete = function(address, callback){
 
 	}
 
-}
+};
 
 function placesServiceResponseBehavior(status, successBehavior, errorBehavior ){
 	
@@ -294,7 +295,7 @@ HarassmentMap.prototype.getPosition = function(queryAutocompletePrediction, call
 
 	});
 
-}
+};
 
 
 
@@ -323,7 +324,97 @@ HarassmentMap.prototype.goToUserLocation = function(success, error){
 	    error();
   	}
 
+};
+
+function Removeds(mapmarks){
+
+	this.removeds = [];
+	this.remLen;
+
+	this.add = function(i){
+		this.removeds.push(i);
+		this.remLen = this.removeds.length;
+	};
+
+	this.erase = function(){
+		var i;
+		for(i=0;i<this.remLen;i++){
+			mapmarks[this.removeds[i]].setVisible(false);
+			//mapmarks.splice(this.removeds[i], 1);
+		}
+	};
+
+
 }
 
 
+HarassmentMap.prototype.findMarksByDate = function(date){
 
+	//this.mapmarks
+	var len = this.mapmarks.length;
+	var i;
+	var d1, d2;
+	var removeds = new Removeds(this.mapmarks);
+
+	for(i=0;i<len;i++){
+		d1 = new Date(this.mapmarks[i].markProps.date );
+		d2 = new Date(date);
+		if( d1.getTime() === d2.getTime() ){
+			console.log("data igual");
+			console.log(this.mapmarks[i].markProps.address);
+			this.mapmarks[i].setVisible(true);
+		}
+		else{
+			removeds.add(i);
+			
+		}
+	}
+	removeds.erase();
+};
+
+HarassmentMap.prototype.findMarksByCrime = function(crime){
+
+	var len = this.mapmarks.length;
+	var i;
+	var removeds = new Removeds(this.mapmarks);
+
+	for(i=0;i<len;i++){
+		if(this.mapmarks[i].markProps.crime == crime ){
+			console.log("crime igual");
+			console.log(this.mapmarks[i].markProps.address);
+			this.mapmarks[i].setVisible(true);
+		}
+		else{
+			removeds.add(i);
+		}
+	}
+
+	removeds.erase();
+
+};
+
+HarassmentMap.prototype.findMarksByTags = function(tags){
+
+	var len = this.mapmarks.length;
+	var i;
+	var removeds = new Removeds(this.mapmarks);
+
+	for(i=0;i<len;i++){
+		if(hasAny( this.mapmarks[i].markProps.tags, tags ) ){
+			console.log("contem a tag");
+			console.log(this.mapmarks[i].markProps.address);
+			this.mapmarks[i].setVisible(true);
+		}
+		else{
+			removeds.add(i);
+		}
+	}
+
+	removeds.erase();
+
+	//arr1 contains any elements of arr2?
+	function hasAny(array1, array2){
+		return array1.some(function(v) { return array2.indexOf(v) != -1; });
+	}
+
+};

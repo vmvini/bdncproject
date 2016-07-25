@@ -114,11 +114,8 @@
 
 		    reportsService.getReports(pos.lat, pos.lng, harassmentMap.getVisibleDistance() )
 	      			.success(function(data){
-	      				console.log("sucesso ao pegar marcações");
-	      				
-	      				
 	      				harassmentMap.loadMarks(data, function(){
-	      					console.log("marcações carregadas");
+	      					//DO SOMETHING
 	      				});
 	      			})
 	      			.error(function(data){
@@ -135,10 +132,8 @@
 	      		infowindow.setContent('Localização encontrada!');
 	      		reportsService.getReports(pos.lat, pos.lng, harassmentMap.getVisibleDistance() )
 	      			.success(function(data){
-	      				console.log("sucesso ao pegar marcações");
-	      				
 	      				harassmentMap.loadMarks(data, function(){
-	      					console.log("marcações carregadas");
+	      					//DO SOMETHING
 	      				});
 	      			})
 	      			.error(function(data){

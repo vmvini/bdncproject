@@ -38,7 +38,7 @@
 					$uibModalInstance.close("modal close method");
 					
 					var markprops = new MarkProps(data, HarassmentMap.map);
-					HarassmentMap.marksIds.push(data._id);
+					//HarassmentMap.marksIds.push(data._id);
 			        HarassmentMap.bindMark(
 			        	addMarker(markprops)
 			        );

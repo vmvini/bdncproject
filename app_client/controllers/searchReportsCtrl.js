@@ -13,6 +13,7 @@
 
 		vm.address;
 
+		//ADDRESS CHANGE LISTENER
 		$scope.$watch('vm.address', function() { 
 
 			if(vm.address !== undefined){
@@ -44,7 +45,44 @@
 
 		});
 
+		//DATE CHANGE LISTENER
+		$scope.$watch('vm.occurrencyDate', function(){
+			
+			if(vm.occurrencyDate !== undefined){
+				HarassmentMap.findMarksByDate(vm.occurrencyDate);
+			}
+		});
 
+		//CRIME CHANGE LISTENER
+		$scope.$watch('vm.crime', function(){
+			
+			if(vm.crime !== undefined){
+				HarassmentMap.findMarksByCrime(vm.crime);
+			}
+
+		});
+
+
+		//TAGS CHANGE LISTENER
+		$scope.$watch('vm.tags', function(){
+			
+			if(vm.tags !== undefined){
+				HarassmentMap.findMarksByTags(getTagsArray(vm.tags));
+			}
+
+		});
+
+	}
+
+
+	function getTagsArray(tags){
+		var i;
+		var myTags = [];
+		for(i=0; i < tags.length; i++){
+			myTags.push(tags[i].text);
+			
+		}
+		return myTags;
 
 	}
 

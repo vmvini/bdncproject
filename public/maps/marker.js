@@ -97,11 +97,12 @@ function addMarker(markProps, markClick ){
     	content: getMarkInfoWindow(markProps)
   	});
 
+	marker.markProps = markProps;
 
 
 	marker.addListener('click', function(){
 		infowindow.open(markProps.map, marker);
-		
+		console.log(marker);
 		if(markClick)
 			markClick();
 	});
@@ -118,7 +119,7 @@ function getAge(birthday) { // birthday is a date
 }
 
 function MarkProps(denuncia, map){
-	console.log("criando markprops", denuncia);
+	this._id = denuncia._id;
 	this.map = map;
 	this.pos = denuncia.pos;
 	this.label = denuncia.crime;
