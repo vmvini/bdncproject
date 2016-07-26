@@ -1,5 +1,5 @@
 function HeatMapControl(harassmentMap){
-
+	console.log("criando heat map");
 	var controlDiv = document.createElement('div');
 
 	// Set CSS for the control border.
@@ -22,6 +22,7 @@ function HeatMapControl(harassmentMap){
 	controlText.style.lineHeight = '38px';
 	controlText.style.paddingLeft = '5px';
 	controlText.style.paddingRight = '5px';
+	controlText.style.marginTop = '5px';
 	controlText.innerHTML = 'Mapa de Calor';
 	controlUI.appendChild(controlText);
 
@@ -39,7 +40,7 @@ function HeatMapControl(harassmentMap){
 
 
 	controlDiv.index = 1;
-	harassmentMap.map.controls[google.maps.ControlPosition.TOP_CENTER].push(controlDiv);
+	harassmentMap.map.controls[google.maps.ControlPosition.TOP_LEFT].push(controlDiv);
 
 
 }

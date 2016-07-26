@@ -5,6 +5,7 @@ function HarassmentMap(){
 	this.mappoints = [];
 	this.infoWindow;
 	this.heatmap;
+	this.lock = false;
 
 	//methods
 	this.createMap;
@@ -86,21 +87,42 @@ HarassmentMap.prototype.getVisibleDistance = function(){
 
 HarassmentMap.prototype.toggleHeatmap = function(){
 
+	console.log("mappoints: " + this.mappoints.length);
+	console.log("mapmarks: " + this.mapmarks.length);
+
 	if(this.heatmap.getMap() == null){
+		console.log("nao tem heatmap");
+		console.log("ativando");
 		this.heatmap.setMap(this.map);
 		setMapMarksVisibility.call(this, false);
 		return true;
 	}
 	else{
+		console.log("tem heatmap");
+		console.log("desativando");
 		this.heatmap.setMap(null);
 		setMapMarksVisibility.call(this, true);
 		return false;
 	}
 
 	function setMapMarksVisibility(bol){
-		this.mapmarks.forEach(function(m){
+		
+		if(this.lock){
+			return;
+		}
+
+
+		var markslen = this.mapmarks.length;
+
+		this.mapmarks.forEach((function(m){
+			this.lock = true;
 			m.setVisible(bol);
-		});
+
+			if(--markslen == 0){
+				this.lock = false;
+			}
+		
+		}).bind(this));
 	}
 
 };
@@ -162,10 +184,11 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 
 
 	createHeatMap = ( function(){
-
-		this.heatmap = new google.maps.visualization.HeatmapLayer({
-			data: this.mappoints
-		});
+		if(!this.heatmap){
+			this.heatmap = new google.maps.visualization.HeatmapLayer({
+				data: this.mappoints
+			});
+		}
 
 	} ).bind(this);
 
@@ -173,6 +196,7 @@ HarassmentMap.prototype.loadMarks = function(marks, end){
 		
 		count--;
 		if(count == 0 ){
+
 
 			createHeatMap();
 			end();

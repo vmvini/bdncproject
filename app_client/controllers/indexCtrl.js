@@ -134,6 +134,7 @@
 	      			.success(function(data){
 	      				harassmentMap.loadMarks(data, function(){
 	      					//DO SOMETHING
+	      					HeatMapControl(harassmentMap);
 	      				});
 	      			})
 	      			.error(function(data){
