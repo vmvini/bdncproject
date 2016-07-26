@@ -64,3 +64,86 @@ label{
 	color:#000;
 }
 
+
+
+
+/*modals */
+.form-header{
+	background-color: #856C4D;
+	color:white;
+}
+
+.form-footer{
+	background-color: #856C4D;
+	color:white;
+}
+
+/*form ok button*/
+.button{
+	background-color: #856C4D;
+	border:1px solid white;
+}
+
+.button:hover{
+	background-color: #967A57;
+	border:1px solid white;
+}
+
+
+
+
+/* TAGS */
+.bootstrap .tags {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+  
+}
+
+
+
+.bootstrap .tags.focused {
+  border-color: white;
+  
+}
+
+.bootstrap .tags .tag-item {
+  background: #856C4D;
+  border: 1px solid white;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.bootstrap .tags .tag-item.selected {
+  background: #d9534f;
+  border: 1px solid #d43f3a;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.bootstrap .tags .tag-item button {
+  background: transparent;
+  color: #000;
+  opacity: .4;
+}
+
+.bootstrap .autocomplete {
+  border-radius: 4px;
+}
+
+.bootstrap .autocomplete .suggestion-item.selected {
+  color: #262626;
+  background-color: #e9e9e9;
+}
+
+.bootstrap .autocomplete .suggestion-item em {
+  font-weight: normal;
+  background-color: #ffff00;
+}
+
+.bootstrap .autocomplete .suggestion-item.selected em {
+  color: #262626;
+  background-color: #ffff00;
+}

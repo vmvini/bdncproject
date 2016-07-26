@@ -1,6 +1,6 @@
 
 <!-- ANGULAR MODAL  -->
-<div class="modal-header">
+<div class="modal-header form-header">
     <h3 class="modal-title">Realizar Denúncia</h3>
 </div>
 <div class="modal-body">
@@ -16,8 +16,8 @@
                 </div>
 
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="selectorType">Classificação do Crime</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-3 control-label" for="selectorType">Classificação do Crime</label>
+                    <div class="col-sm-9">
                         <select ng-model="vm.denuncia.crime" name="crime" id="selectorType" class="form-control">
                           <option value="Assédio" >Assédio</option>
                           <option value="Violência" >Violência</option>
@@ -29,8 +29,8 @@
 
 
                   <div class="form-group">
-                    <label class="col-sm-2 control-label" for="selectorVictim">Vítima</label>
-                    <div class="col-sm-10">
+                    <label class="col-sm-3 control-label" for="selectorVictim">Vítima</label>
+                    <div class="col-sm-9">
                         <select ng-model="vm.denuncia.victim" name="victim" id="selectorVictim" class="form-control">
                                   <option  value="true" >Sou a vítima</option>
                                   <option value="false" >Presenciei o crime</option>
@@ -45,9 +45,15 @@
                         <input type="date" ng-model="vm.denuncia.date" id="birthDate" class="form-control">
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Tags</label>
+                    <div class="col-sm-9">
+                        <tags-input class="bootstrap" replace-spaces-with-dashes="false"  ng-model="vm.tags"></tags-input>
+                    </div>
+                </div>
                   
-                  <h3>Tags</h3> 
-                  <tags-input ng-model="vm.tags"></tags-input>
+                 
 
                   <div class="checkbox">
                     <label>
@@ -65,7 +71,7 @@
 
 </div>
 
-<div class="modal-footer">
-    <button ng-hide="vm.success" ng-show="vm.error" class="btn btn-primary" type="button" ng-click="vm.ok()">Denunciar</button>
-    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Fechar</button>
+<div class="modal-footer form-footer">
+    <button ng-hide="vm.success" ng-show="vm.error" class="btn btn-primary button" type="button" ng-click="vm.ok()">Denunciar</button>
+    <button class="btn btn-warning button" type="button" ng-click="vm.cancel()">Fechar</button>
 </div>

@@ -1,9 +1,9 @@
 
 <!-- ANGULAR USER LOGIN MODAL  -->
-<div class="modal-header">
-    <h3 class="modal-title">Entrar</h3>
+<div class="modal-header form-header">
+    <h3 class="modal-title ">Entrar</h3>
 </div>
-<div class="modal-body">
+<div class="modal-body ">
 
               <form name="loginForm" class="form-horizontal" role="form" novalidate >
 
@@ -39,7 +39,7 @@
     
 </div>
 
-<div class="modal-footer">
-    <button ng-hide="vm.success" ng-disabled="loginForm.$invalid" class="btn btn-primary" type="button" ng-click="vm.ok()">Entrar</button>
-    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Fechar</button>
+<div class="modal-footer form-footer">
+    <button ng-hide="vm.success" ng-disabled="loginForm.$invalid" class="btn btn-primary button" type="button" ng-click="vm.ok()">Entrar</button>
+    <button class="btn btn-warning button" type="button" ng-click="vm.cancel()">Fechar</button>
 </div>
