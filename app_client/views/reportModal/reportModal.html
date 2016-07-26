@@ -5,20 +5,20 @@
 </div>
 <div class="modal-body">
             
-             <form class="form-horizontal" role="form">
+             <form name="reportForm" class="form-horizontal" role="form" novalidate>
                   
 
                   <div class="form-group">
                     <label for="endereco" class="col-sm-3 control-label">Endereço</label>
                     <div class="col-sm-9">
-                        <input ng-model="vm.denuncia.address" type="text" id="endereco" placeholder="" class="form-control">
+                        <input ng-disabled="regForm.$invalid" ng-model="vm.denuncia.address" name="address" type="text" id="endereco" placeholder="" class="form-control">
                     </div>
                 </div>
 
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="selectorType">Classificação do Crime</label>
                     <div class="col-sm-10">
-                        <select ng-model="vm.denuncia.crime" id="selectorType" class="form-control">
+                        <select ng-model="vm.denuncia.crime" name="crime" id="selectorType" class="form-control">
                           <option value="Assédio" >Assédio</option>
                           <option value="Violência" >Violência</option>
                           <option value="Estupro" >Estupro</option>
@@ -31,8 +31,8 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="selectorVictim">Vítima</label>
                     <div class="col-sm-10">
-                        <select ng-model="vm.denuncia.victim" id="selectorVictim" class="form-control">
-                                  <option value="true" >Sou a vítima</option>
+                        <select ng-model="vm.denuncia.victim" name="victim" id="selectorVictim" class="form-control">
+                                  <option  value="true" >Sou a vítima</option>
                                   <option value="false" >Presenciei o crime</option>
                                 </select>
 
@@ -59,10 +59,13 @@
                 </form>
 
 
+               <p>{{vm.errorMessage}}</p>
+
+           
 
 </div>
 
 <div class="modal-footer">
-    <button class="btn btn-primary" type="button" ng-click="vm.ok()">OK</button>
-    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Cancel</button>
+    <button ng-hide="vm.success" ng-show="vm.error" class="btn btn-primary" type="button" ng-click="vm.ok()">Denunciar</button>
+    <button class="btn btn-warning" type="button" ng-click="vm.cancel()">Fechar</button>
 </div>

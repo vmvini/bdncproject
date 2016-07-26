@@ -9,16 +9,21 @@
 
 		var vm = this;
 
+		vm.errorMessage = "";
+
+		vm.success = false;
+		vm.error = false;
+
 		vm.tags = [];
 
 		vm.denuncia = {
 			pos: pos,
 			tags: [],
-			victim: false,
+			victim: "true",
 			user: null,
-			crime: "",
+			crime: "Assédio",
 			anonymous: false,
-			date:null,
+			date:new Date(),
 			address:""
 		};	
 
@@ -38,6 +43,7 @@
 					$uibModalInstance.close("modal close method");
 					
 					var markprops = new MarkProps(data, HarassmentMap.map);
+					vm.success = true;
 					//HarassmentMap.marksIds.push(data._id);
 			        HarassmentMap.bindMark(
 			        	addMarker(markprops)
@@ -46,6 +52,8 @@
 				.error(function(data){
 					console.log("erro ao cadastrar denuncia");
 					console.log(data);
+					vm.errorMessage = "Erro ao realizar denúncia";
+					vm.error = true;
 				});
 
 
